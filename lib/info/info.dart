@@ -1,0 +1,1 @@
+const String logoImage = "webassets/images/leptonlogo.png";
