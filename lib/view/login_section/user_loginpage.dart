@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fab_circular_menu_plus/fab_circular_menu_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,8 @@ import 'package:new_project_driving/info/info.dart';
 import 'package:new_project_driving/view/colors/colors.dart';
 import 'package:new_project_driving/view/controller/user_login_Controller/user_login_controller.dart';
 import 'package:new_project_driving/view/fonts/google_poppins_widget.dart';
+import 'package:new_project_driving/view/signup_section/teacher_signup_section.dart';
+import 'package:new_project_driving/view/widget/dropdown_widget/select_user_dropdown.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 
 class UserLoginPageScreen extends StatefulWidget {
@@ -57,10 +61,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                         child: Image(
                             image: AssetImage(
                                 'webassets/flact_png/icons8-fingerprint-100.png'))),
-                    // decoration: ,
                   ),
                   key: fabKey,
-                  // Cannot be `Alignment.center`
                   alignment: Alignment.bottomRight,
                   ringColor: cWhite.withOpacity(0.4),
                   ringDiameter:
@@ -69,7 +71,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                   fabSize: ResponsiveWebSite.isMobile(context) ? 30 : 64.0,
                   fabElevation: ResponsiveWebSite.isMobile(context) ? 8.0 : 8.0,
                   fabIconBorder: const CircleBorder(),
-
                   fabColor: Colors.white,
                   fabOpenIcon: const Icon(Icons.menu, color: themeColorBlue),
                   fabCloseIcon: const Icon(Icons.close, color: themeColorBlue),
@@ -78,14 +79,10 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                       : const EdgeInsets.all(16.0),
                   animationDuration: const Duration(milliseconds: 800),
                   animationCurve: Curves.easeInOutCirc,
-                  onDisplayChange: (isOpen) {
-                    // _showSnackBar(
-                    //     context, "The menu is ${isOpen ? "open" : "closed"}");
-                  },
+                  onDisplayChange: (isOpen) {},
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        // loginController.askUserDetailsBottomSheet(context);
                         loginController.askUserDetailsBottomSheet(context);
                         //   Get.offAll(() => const StudentHomeScreen());
                       },
@@ -233,7 +230,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                               width: 400,
                               decoration: const BoxDecoration(
                                 color: cWhite,
-                                // borderRadius: BorderRadius.circular(20),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -318,7 +314,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                             Checkbox(
                                               value: isChecked,
                                               onChanged: (bool? value) {
-                                                // This is where we update the state when the checkbox is tapped
                                                 setState(() {
                                                   isChecked = value!;
                                                 });
@@ -373,8 +368,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                         decoration: const BoxDecoration(
                                           color:
                                               Color.fromARGB(255, 14, 40, 97),
-                                          // borderRadius:
-                                          // BorderRadius.circular(12)
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -391,11 +384,90 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                 ],
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.only(top: 20),
-                              child: Text(
-                                "Don't have an account? SignUp now!",
-                                style: TextStyle(color: cWhite),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible:
+                                        false, // user must tap button!
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title:
+                                            const Text('Enter Your School ID'),
+                                        content: const SingleChildScrollView(
+                                          child: ListBody(
+                                            children: <Widget>[
+                                              UserTypeDropDownButton()
+                                            ],
+                                          ),
+                                        ),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: const Text('Ok'),
+                                            onPressed: () async {
+                                              if (selectedUserType == null) {
+                                                return showDialog(
+                                                  context: context,
+                                                  barrierDismissible:
+                                                      false, // user must tap button!
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          const Text('Alert'),
+                                                      content:
+                                                          const SingleChildScrollView(
+                                                        child: ListBody(
+                                                          children: <Widget>[
+                                                            Text(
+                                                                'Sorry you have no access to delete')
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          child:
+                                                              const Text('Ok'),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              } else if (selectedUserType ==
+                                                  'teacher') {
+                                                await Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return const TeacherProfileCreationScreen();
+                                                  },
+                                                ));
+                                              } else {
+                                                log("no user");
+                                              }
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: const Text('Cancel'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: const Text(
+                                  "Don't have an account? SignUp now!",
+                                  style: TextStyle(color: cWhite),
+                                ),
                               ),
                             ),
                             //   ),
@@ -404,9 +476,7 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                         ),
                       ),
                     )
-                  : Container(
-                      // color: Colors.black.withOpacity(colorAnimation.value),
-                      );
+                  : Container();
             } else {
               return Center(
                 child: Padding(
@@ -420,7 +490,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                         width: 400,
                         decoration: const BoxDecoration(
                           color: cWhite,
-                          // borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -456,17 +525,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                 ],
                               ),
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 45),
-                            //   child: Text(
-                            //     "Welcome Back",
-                            //     style: TextStyle(
-                            //         fontWeight: FontWeight.bold,
-                            //         color: istColor,
-                            //         fontSize: 25),
-                            //   ),
-                            // ),
-
                             Padding(
                               padding: const EdgeInsets.only(top: 30),
                               child: SizedBox(
@@ -499,7 +557,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                     width: 300),
                               ),
                             ),
-
                             Padding(
                               padding:
                                   const EdgeInsets.only(top: 30, bottom: 30),
@@ -514,7 +571,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                       Checkbox(
                                         value: isChecked,
                                         onChanged: (bool? value) {
-                                          // This is where we update the state when the checkbox is tapped
                                           setState(() {
                                             isChecked = value!;
                                           });
@@ -541,18 +597,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                 ],
                               ),
                             ),
-                            // Padding(
-                            //   padding:
-                            //       const EdgeInsets.only(left: 180, bottom: 30,top: 30),
-                            //   child: Text(
-                            //     "Forgot your password ?",
-                            //     style: TextStyle(
-                            //       fontWeight: FontWeight.w300,
-                            //       fontSize: 11,
-                            //       color: cred.withOpacity(1),
-                            //     ),
-                            //   ),
-                            // ),
                             Padding(
                               padding: const EdgeInsets.only(
                                 top: 10,
@@ -579,7 +623,6 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                   width: 300,
                                   decoration: const BoxDecoration(
                                     color: Color.fromARGB(255, 14, 40, 97),
-                                    // borderRadius: BorderRadius.circular(12)
                                   ),
                                   child: const Center(
                                     child: Text(
@@ -596,11 +639,85 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                           ],
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: Text(
-                          "Don't have an account? SignUp now!",
-                          style: TextStyle(color: cWhite),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              barrierDismissible:
+                                  false, // user must tap button!
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Select Your User Role'),
+                                  content: const SingleChildScrollView(
+                                    child: ListBody(
+                                      children: <Widget>[
+                                        UserTypeDropDownButton()
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('Ok'),
+                                      onPressed: () async {
+                                        if (selectedUserType == null) {
+                                          return showDialog(
+                                            context: context,
+                                            barrierDismissible:
+                                                false, // user must tap button!
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text('Alert'),
+                                                content:
+                                                    const SingleChildScrollView(
+                                                  child: ListBody(
+                                                    children: <Widget>[
+                                                      Text(
+                                                          'Sorry you have no access to delete')
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: const Text('Ok'),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        } else if (selectedUserType ==
+                                            'teacher') {
+                                          await Navigator.push(context,
+                                              MaterialPageRoute(
+                                            builder: (context) {
+                                              return const TeacherProfileCreationScreen();
+                                            },
+                                          ));
+                                        } else {
+                                          log("no user");
+                                        }
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text('Cancel'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: const Text(
+                            "Don't have an account? SignUp now!",
+                            style: TextStyle(color: cWhite),
+                          ),
                         ),
                       ),
                     ],
@@ -667,14 +784,12 @@ class TextFormFiledContainerLoginWidget extends StatelessWidget {
               controller: controller,
               decoration: InputDecoration(
                 errorBorder: const OutlineInputBorder(
-                    // borderRadius: BorderRadius.all(Radius.circular(4)),
                     borderSide: BorderSide(
                   width: 1,
                   style: BorderStyle.none,
                   color: Colors.red,
                 )),
                 focusedErrorBorder: const OutlineInputBorder(
-                  // borderRadius: BorderRadius.all(Radius.circular(4)),
                   borderSide: BorderSide(
                     width: 1,
                     style: BorderStyle.none,
@@ -688,7 +803,6 @@ class TextFormFiledContainerLoginWidget extends StatelessWidget {
                 hintText: hintText,
                 suffixIcon: icon,
                 focusedBorder: const OutlineInputBorder(
-                  //<-- SEE HERE
                   borderSide: BorderSide(width: 1, color: Colors.blue),
                 ),
               ),

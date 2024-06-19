@@ -20,7 +20,7 @@ class BatchYearController extends GetxController {
   RxString batchyearValue = ''.obs;
   Future<List<String>> fetchBatchyear() async {
     final firebase = await server
-        .collection('SchoolListCollection')
+        .collection('DrivingSchoolCollection')
         .doc(UserCredentialsController.schoolId)
         .collection("BatchYear")
         .get();
