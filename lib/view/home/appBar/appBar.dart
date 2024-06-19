@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_project_driving/view/colors/colors.dart';
+import 'package:new_project_driving/view/home/appBar/login_button.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -51,7 +52,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 void _launchURL(String url) async {
   if (await canLaunchUrlString(url)) {
-    await launchUrl;
+    launchUrl;
   } else {
     throw 'Could not launch $url';
   }
@@ -68,7 +69,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
 
       return Container(
         color: const Color.fromARGB(255, 20, 37, 59),
-        height:  100,
+        height: 100,
         // ResponsiveWebSite.isMobile(context) ? 150 : 100,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -102,6 +103,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                     child: Expanded(
                       child: Row(
                         children: [
+                          const LoginButton(),
                           ResponsiveWebSite.isMobile(context)
                               ? Row(
                                   children: [
@@ -224,6 +226,14 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Visibility(
+                    visible: maxWidthValue < 430,
+                    child: const Row(
+                      children: [
+                        LoginButton(),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ],
