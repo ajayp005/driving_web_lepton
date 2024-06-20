@@ -39,6 +39,9 @@ dependencies:
   flutter_staggered_animations:
   url_launcher:
   font_awesome_flutter:
+  intl: ^0.19.0
+  uuid: ^4.4.0
+  fluttertoast: ^8.2.6
 
 dev_dependencies:
   flutter_test:

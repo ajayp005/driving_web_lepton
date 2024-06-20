@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_project_driving/view/colors/colors.dart';
+import 'package:new_project_driving/view/fonts/google_monstre.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -51,7 +52,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 void _launchURL(String url) async {
   if (await canLaunchUrlString(url)) {
-    await launchUrl;
+    launchUrl;
   } else {
     throw 'Could not launch $url';
   }
@@ -68,7 +69,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
 
       return Container(
         color: const Color.fromARGB(255, 20, 37, 59),
-        height:  100,
+        height: 100,
         // ResponsiveWebSite.isMobile(context) ? 150 : 100,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
@@ -105,24 +106,38 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                           ResponsiveWebSite.isMobile(context)
                               ? Row(
                                   children: [
+                                    Container(
+                                        height: 25,
+                                        width: 65,
+                                        margin: EdgeInsets.zero,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(Radius.circular(10)),
+                                            color: cWhite,
+                                            border: Border.all(color: cred)),
+                                        child: Center(
+                                          child: GoogleMonstserratWidgets(
+                                            text: "Login",
+                                            fontsize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: cred,
+                                          ),
+                                        )),
                                     IconButton(
                                       icon: const FaIcon(
                                         size: 15,
                                         FontAwesomeIcons.facebook,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () => _launchURL(
-                                          'https://www.facebook.com'),
+                                      onPressed: () => _launchURL('https://www.facebook.com'),
                                     ),
                                     IconButton(
                                       icon: const FaIcon(
                                         size: 15,
                                         FontAwesomeIcons.instagram,
-                                        color:
-                                            Color.fromARGB(255, 217, 83, 128),
+                                        color: Color.fromARGB(255, 217, 83, 128),
                                       ),
-                                      onPressed: () => _launchURL(
-                                          'https://www.instagram.com'),
+                                      onPressed: () => _launchURL('https://www.instagram.com'),
                                     ),
                                     IconButton(
                                       focusColor: Colors.black,
@@ -131,8 +146,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                                         FontAwesomeIcons.xTwitter,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () =>
-                                          _launchURL('https://www.twitter.com'),
+                                      onPressed: () => _launchURL('https://www.twitter.com'),
                                     ),
                                     IconButton(
                                       icon: const FaIcon(
@@ -140,31 +154,51 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                                         FontAwesomeIcons.youtube,
                                         color: Colors.red,
                                       ),
-                                      onPressed: () =>
-                                          _launchURL('https://www.youtube.com'),
+                                      onPressed: () => _launchURL('https://www.youtube.com'),
                                     ),
                                   ],
                                 )
                               : Row(
                                   children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: InkWell(onTap: () {
+                                        
+                                      },
+                                        child: Container(
+                                            height: 25,
+                                            width: 65,
+                                            margin: EdgeInsets.zero,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(Radius.circular(10)),
+                                                color: cWhite,
+                                                border: Border.all(color: cred)),
+                                            child: Center(
+                                              child: GoogleMonstserratWidgets(
+                                                text: "Login",
+                                                fontsize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: cred,
+                                              ),
+                                            )),
+                                      ),
+                                    ),
                                     IconButton(
                                       icon: const FaIcon(
                                         size: 20,
                                         FontAwesomeIcons.facebook,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () => _launchURL(
-                                          'https://www.facebook.com'),
+                                      onPressed: () => _launchURL('https://www.facebook.com'),
                                     ),
                                     IconButton(
                                       icon: const FaIcon(
                                         size: 20,
                                         FontAwesomeIcons.instagram,
-                                        color:
-                                            Color.fromARGB(255, 217, 83, 128),
+                                        color: Color.fromARGB(255, 217, 83, 128),
                                       ),
-                                      onPressed: () => _launchURL(
-                                          'https://www.instagram.com'),
+                                      onPressed: () => _launchURL('https://www.instagram.com'),
                                     ),
                                     IconButton(
                                       focusColor: Colors.black,
@@ -173,8 +207,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                                         FontAwesomeIcons.xTwitter,
                                         color: Colors.white,
                                       ),
-                                      onPressed: () =>
-                                          _launchURL('https://www.twitter.com'),
+                                      onPressed: () => _launchURL('https://www.twitter.com'),
                                     ),
                                     IconButton(
                                       icon: const FaIcon(
@@ -182,8 +215,7 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                                         FontAwesomeIcons.youtube,
                                         color: Colors.red,
                                       ),
-                                      onPressed: () =>
-                                          _launchURL('https://www.youtube.com'),
+                                      onPressed: () => _launchURL('https://www.youtube.com'),
                                     ),
                                   ],
                                 )
