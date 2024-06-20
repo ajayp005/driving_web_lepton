@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_project_driving/view/fonts/google_poppins_widget.dart';
-import '../../colors/colors.dart';
+import 'package:new_project_driving/fonts/google_poppins_widget.dart';
+import '../../../colors/colors.dart';
 
 class TextFormFiledContainerWidget extends StatelessWidget {
   TextEditingController? controller = TextEditingController();
