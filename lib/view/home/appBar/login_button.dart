@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_project_driving/view/colors/colors.dart';
-import 'package:new_project_driving/view/fonts/google_monstre.dart';
+import 'package:new_project_driving/colors/colors.dart';
+import 'package:new_project_driving/fonts/google_monstre.dart';
 import 'package:new_project_driving/view/login_section/user_loginpage.dart';
 
 class LoginButton extends StatelessWidget {

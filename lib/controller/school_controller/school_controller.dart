@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:new_project_driving/view/model/school_list_model/school_model.dart';
-import 'package:new_project_driving/view/utils/firebase/firebase.dart';
-import 'package:new_project_driving/view/utils/user_auth/user_credentials.dart';
+import 'package:new_project_driving/model/school_list_model/school_model.dart';
+import 'package:new_project_driving/utils/firebase/firebase.dart';
+import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 
 class SchoolController extends GetxController {
   List<SchoolModel> schoolModelList = [];

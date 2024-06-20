@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:new_project_driving/view/fonts/text_widget.dart';
+import 'package:new_project_driving/fonts/text_widget.dart';
 import 'package:uuid/uuid.dart';
 
 const sw50 = SizedBox(

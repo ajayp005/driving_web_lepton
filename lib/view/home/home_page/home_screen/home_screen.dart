@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:new_project_driving/view/colors/colors.dart';
-import 'package:new_project_driving/view/fonts/google_monstre.dart';
-import 'package:new_project_driving/view/fonts/google_poppins_widget.dart';
+import 'package:new_project_driving/colors/colors.dart';
+import 'package:new_project_driving/fonts/google_monstre.dart';
+import 'package:new_project_driving/fonts/google_poppins_widget.dart';
 import 'package:new_project_driving/view/home/appBar/appBar.dart';
 import 'package:new_project_driving/view/home/home_page/HomeMainImageScreen/HomeMainImage_screen.dart';
 import 'package:new_project_driving/view/home/home_page/about/about.dart';

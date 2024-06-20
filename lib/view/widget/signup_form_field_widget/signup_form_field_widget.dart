@@ -1,6 +1,6 @@
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:new_project_driving/view/colors/colors.dart';
+import 'package:new_project_driving/colors/colors.dart';
 
 class SignUpTextFormFieldWidget extends StatelessWidget {
   const SignUpTextFormFieldWidget({

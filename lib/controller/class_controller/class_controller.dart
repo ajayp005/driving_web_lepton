@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_project_driving/view/model/class_model/class_model.dart';
-import 'package:new_project_driving/view/model/student_model/student_model.dart';
+import 'package:new_project_driving/model/class_model/class_model.dart';
+import 'package:new_project_driving/model/student_model/student_model.dart';
 import 'package:progress_state_button/progress_button.dart';
 
 class ClassController extends GetxController {

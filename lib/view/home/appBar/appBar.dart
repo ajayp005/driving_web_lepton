@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:new_project_driving/view/colors/colors.dart';
+import 'package:new_project_driving/colors/colors.dart';
 import 'package:new_project_driving/view/home/appBar/login_button.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';

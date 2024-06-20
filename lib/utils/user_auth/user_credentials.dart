@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:new_project_driving/view/model/admin_model/admin_model.dart';
-import 'package:new_project_driving/view/model/student_model/student_model.dart';
-import 'package:new_project_driving/view/model/teacher_model/teacher_model.dart';
-import 'package:new_project_driving/view/splash_screen.dart';
+import 'package:new_project_driving/model/admin_model/admin_model.dart';
+import 'package:new_project_driving/model/student_model/student_model.dart';
+import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
+import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {

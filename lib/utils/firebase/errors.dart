@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:new_project_driving/view/constant/const.dart';
+import 'package:new_project_driving/constant/const.dart';
 
 void handleFirebaseError(FirebaseAuthException error) {
   switch (error.code) {

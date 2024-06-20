@@ -5,15 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:new_project_driving/view/constant/const.dart';
-import 'package:new_project_driving/view/constant/constant.validate.dart';
-import 'package:new_project_driving/view/controller/class_controller/class_controller.dart';
-import 'package:new_project_driving/view/model/student_model/student_model.dart';
-import 'package:new_project_driving/view/model/teacher_model/teacher_model.dart';
-import 'package:new_project_driving/view/splash_screen.dart';
-import 'package:new_project_driving/view/utils/firebase/errors.dart';
-import 'package:new_project_driving/view/utils/firebase/firebase.dart';
-import 'package:new_project_driving/view/utils/user_auth/user_credentials.dart';
+import 'package:new_project_driving/constant/const.dart';
+import 'package:new_project_driving/constant/constant.validate.dart';
+import 'package:new_project_driving/controller/class_controller/class_controller.dart';
+import 'package:new_project_driving/model/student_model/student_model.dart';
+import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
+import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
+import 'package:new_project_driving/utils/firebase/errors.dart';
+import 'package:new_project_driving/utils/firebase/firebase.dart';
+import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 
 class UserLoginController extends GetxController {
   final classCtrl = Get.put(ClassController());

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:new_project_driving/info/info.dart';
-import 'package:new_project_driving/view/colors/colors.dart';
-import 'package:new_project_driving/view/controller/school_controller/school_controller.dart';
-import 'package:new_project_driving/view/controller/user_auth/user_auth_controller.dart';
-import 'package:new_project_driving/view/controller/user_login_Controller/user_login_controller.dart';
-import 'package:new_project_driving/view/fonts/google_monstre.dart';
-import 'package:new_project_driving/view/utils/user_auth/user_credentials.dart';
+import 'package:new_project_driving/colors/colors.dart';
+import 'package:new_project_driving/controller/school_controller/school_controller.dart';
+import 'package:new_project_driving/controller/user_auth/user_auth_controller.dart';
+import 'package:new_project_driving/controller/user_login_Controller/user_login_controller.dart';
+import 'package:new_project_driving/fonts/google_monstre.dart';
+import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 
 class SplashScreen extends StatelessWidget {
   final UserAuthController userLoginController = Get.put(UserAuthController());

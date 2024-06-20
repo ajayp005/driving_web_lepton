@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_project_driving/view/colors/colors.dart';
-import 'package:new_project_driving/view/fonts/google_poppins_widget.dart';
+import 'package:new_project_driving/colors/colors.dart';
+import 'package:new_project_driving/fonts/google_poppins_widget.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 class AboutWidget extends StatelessWidget {
   const AboutWidget({
