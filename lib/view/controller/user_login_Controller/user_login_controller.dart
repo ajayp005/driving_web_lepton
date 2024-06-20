@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:html' as html;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,22 +7,16 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:new_project_driving/view/constant/const.dart';
 import 'package:new_project_driving/view/constant/constant.validate.dart';
-import 'package:new_project_driving/view/controller/batch_yearController/batch_year_Controller.dart';
 import 'package:new_project_driving/view/controller/class_controller/class_controller.dart';
-import 'package:new_project_driving/view/fonts/text_widget.dart';
 import 'package:new_project_driving/view/model/student_model/student_model.dart';
 import 'package:new_project_driving/view/model/teacher_model/teacher_model.dart';
 import 'package:new_project_driving/view/splash_screen.dart';
 import 'package:new_project_driving/view/utils/firebase/errors.dart';
 import 'package:new_project_driving/view/utils/firebase/firebase.dart';
 import 'package:new_project_driving/view/utils/user_auth/user_credentials.dart';
-import 'package:new_project_driving/view/widget/custom_showdialouge/custom_showdialouge.dart';
-import 'package:new_project_driving/view/widget/dropdown_widget/school_dropdown_list.dart';
 
 class UserLoginController extends GetxController {
   final classCtrl = Get.put(ClassController());
-  final batchCtrl = Get.put(BatchYearController());
-  final GlobalKey<FormState> _secondFormkey = GlobalKey<FormState>();
   late AnimationController animationctr;
   late Animation colorAnimation;
 
@@ -35,16 +28,12 @@ class UserLoginController extends GetxController {
   final TextEditingController userEmailIDController = TextEditingController();
   final TextEditingController userPasswordController = TextEditingController();
   String batchID = '';
-  late String? schoolID = schoolListValue?['docid'];
-  late String? schoolName = schoolListValue?['schoolName'] ?? '';
+  late String? schoolID = UserCredentialsController.schoolId;
+  late String? schoolName = UserCredentialsController.schoolName;
 
   Future<bool> secondaryAdminLogin() async {
     //....... .......................................Secondary Admin Login Function
     try {
-      final user = await server
-          .collection('DrivingSchoolCollection')
-          .doc(schoolID)
-          .get();
       await serverAuth
           .signInWithEmailAndPassword(
               email: userEmailIDController.text.trim(),
@@ -54,7 +43,7 @@ class UserLoginController extends GetxController {
             SharedPreferencesHelper.currentUserDocid, authvalue.user!.uid);
         final result = await server
             .collection('DrivingSchoolCollection')
-            .doc(schoolID)
+            .doc(UserCredentialsController.schoolId)
             .collection('Admins')
             .where('docid', isEqualTo: userUID.value)
             .get();
@@ -64,15 +53,15 @@ class UserLoginController extends GetxController {
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.schoolIdKey, schoolID!);
           await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.schoolNameKey, schoolName!);
-          await SharedPreferencesHelper.setString(
-                  SharedPreferencesHelper.batchIdKey, user.data()?['batchYear'])
+                  SharedPreferencesHelper.schoolNameKey, schoolName!)
+              // await SharedPreferencesHelper.setString(
+              //         SharedPreferencesHelper.batchIdKey, user.data()?['batchYear'])
               .then((value) async {
-            batchID = user.data()?['batchYear'];
+            // batchID = user.data()?['batchYear'];
             logined.value = true;
             userEmailIDController.clear();
             userPasswordController.clear();
-            Get.offAll(() => const SplashScreen());
+            Get.offAll(() => SplashScreen());
           });
         } else if (result.docs.isEmpty) {
           showToast(msg: "Admin login failed");
@@ -97,10 +86,6 @@ class UserLoginController extends GetxController {
 
     //....... ........................................Admin  Login Function
     try {
-      final user = await server
-          .collection('DrivingSchoolCollection')
-          .doc(schoolID)
-          .get();
       await serverAuth
           .signInWithEmailAndPassword(
               email: userEmailIDController.text.trim(),
@@ -111,34 +96,30 @@ class UserLoginController extends GetxController {
         log("Admin ID $userUID");
         log("schoolID ID $schoolID");
         userUID.value = authvalue.user!.uid;
-        if (user.data()?['batchYear'] == '') {
-          setBatchYear(context);
-        } else {
-          if (userUID.value == schoolID) {
-            await SharedPreferencesHelper.setString(
-                SharedPreferencesHelper.userRoleKey, 'admin');
-            await SharedPreferencesHelper.setString(
-                SharedPreferencesHelper.schoolIdKey, schoolID!);
-            await SharedPreferencesHelper.setString(
-                SharedPreferencesHelper.schoolNameKey, schoolName!);
-            await SharedPreferencesHelper.setString(
-                    SharedPreferencesHelper.batchIdKey,
-                    user.data()!['batchYear'])
-                .then((value) async {
-              log("SchoolID :  ${UserCredentialsController.schoolId}");
-              log("BatchID :  ${UserCredentialsController.batchId}");
-              log("userrole :  ${UserCredentialsController.userRole}");
-              batchID = user.data()?['batchYear'];
+        // if (user.data()?['batchYear'] == '') {
+        //   setBatchYear(context);
+        // } else {
+        if (userUID.value == schoolID) {
+          await SharedPreferencesHelper.setString(
+              SharedPreferencesHelper.userRoleKey, 'admin');
+          await SharedPreferencesHelper.setString(
+              SharedPreferencesHelper.schoolIdKey, schoolID!);
+          await SharedPreferencesHelper.setString(
+                  SharedPreferencesHelper.schoolNameKey, schoolName!)
+              .then((value) async {
+            log("SchoolID :  ${UserCredentialsController.schoolId}");
+            log("userrole :  ${UserCredentialsController.userRole}");
 
-              userEmailIDController.clear();
-              userPasswordController.clear();
-              logined.value = true;
-              Get.offAll(() => const SplashScreen());
-            });
-          } else {
-            await secondaryAdminLogin();
-          }
+            userEmailIDController.clear();
+            userPasswordController.clear();
+            logined.value = true;
+            Get.offAll(() => SplashScreen());
+          });
+        } else {
+          log("trying secondaryAdminLogin");
+          await secondaryAdminLogin();
         }
+        // }
       }).catchError((error) {
         if (error is FirebaseAuthException) {
           isLoading.value = false;
@@ -149,76 +130,6 @@ class UserLoginController extends GetxController {
       log(e.toString());
       showToast(msg: "School Login failed !!");
     }
-  }
-
-  Future<void> teacherLoginController() async {
-    //....... ........................................teacher  Login Function
-
-    try {
-      serverAuth
-          .signInWithEmailAndPassword(
-              email: userEmailIDController.text.trim(),
-              password: userPasswordController.text.trim())
-          .then((value) async {
-        final result = await server
-            .collection('DrivingSchoolCollection')
-            .doc(schoolID)
-            .collection('Teachers')
-            .where('docid', isEqualTo: userUID.value)
-            .get();
-        if (result.docs.isNotEmpty) {
-          userEmailIDController.clear();
-          userPasswordController.clear();
-          // Get.offAll(() => const TeachersHomeScreen());
-        } else if (result.docs.isEmpty) {
-          showToast(msg: "No Results Found !!");
-        } else {
-          showToast(msg: "Login failed");
-        }
-      }).catchError((error) {
-        if (error is FirebaseAuthException) {
-          isLoading.value = false;
-          handleFirebaseError(error);
-        }
-      });
-    } catch (e) {
-      log(e.toString());
-      showToast(msg: "School Login failed !!");
-    }
-  }
-
-  askUserDetailsBottomSheet(BuildContext context) {
-    return customShowDilogBox(
-        context: context,
-        title: "Slelct the options",
-        children: [
-          const SizedBox(
-            height: 150,
-            width: 400,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFontWidget(text: 'Select Batch year *', fontsize: 12),
-                // SizedBox(
-                //   height: 45,
-                //   child: SelectBatchYearDropDownLogin(),
-                // ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFontWidget(text: 'Select Class *', fontsize: 12),
-                // SizedBox(
-                //   height: 45,
-                //   child: SelectClassDropDownLogin(),
-                // ),
-              ],
-            ),
-          )
-        ],
-        actiononTapfuction: () async {
-          await studentLoginController(context);
-        },
-        doyouwantActionButton: true);
   }
 
   Future<void> studentLoginController(BuildContext context) async {
@@ -232,11 +143,7 @@ class UserLoginController extends GetxController {
           .then((value) async {
         final user = await server
             .collection('DrivingSchoolCollection')
-            .doc(schoolListValue['docid'])
-            .collection(batchCtrl.batchyearValue.value)
-            .doc(batchCtrl.batchyearValue.value)
-            .collection('classes')
-            .doc(classCtrl.classDocID.value)
+            .doc(UserCredentialsController.schoolId)
             .collection('Students')
             .doc(value.user?.uid)
             .get();
@@ -253,16 +160,11 @@ class UserLoginController extends GetxController {
               SharedPreferencesHelper.schoolIdKey, schoolID!);
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.schoolNameKey, schoolName!);
-          await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.batchIdKey,
-              batchCtrl.batchyearValue.value);
-          await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.classIdKey, classCtrl.classDocID.value);
           if (context.mounted) {
             logined.value = true;
             Navigator.pushAndRemoveUntil(context,
                 MaterialPageRoute(builder: (context) {
-              return const SplashScreen();
+              return SplashScreen();
             }), (route) => false);
           }
           isLoading.value = false;
@@ -283,40 +185,6 @@ class UserLoginController extends GetxController {
     }
   }
 
-  askUserDetailsTeacherBottomSheet(BuildContext context) {
-    return customShowDilogBox(
-        context: context,
-        title: "Slelct the options",
-        children: [
-          const SizedBox(
-            height: 150,
-            width: 400,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFontWidget(text: 'Select Batch year *', fontsize: 12),
-                // SizedBox(
-                //   height: 45,
-                //   child: SelectBatchYearDropDownLogin(),
-                // ),
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // const TextFontWidget(text: 'Select Class *', fontsize: 12),
-                // SizedBox(
-                //   height: 45,
-                //   child: SelectClassDropDownLogin(),
-                // ),
-              ],
-            ),
-          )
-        ],
-        actiononTapfuction: () async {
-          await teachereLoginController(context);
-        },
-        doyouwantActionButton: true);
-  }
-
   Future<void> teachereLoginController(BuildContext context) async {
     //....... ........................................parent  Login Function
 
@@ -329,7 +197,7 @@ class UserLoginController extends GetxController {
           .then((value) async {
         final user = await server
             .collection('DrivingSchoolCollection')
-            .doc(schoolListValue['docid'])
+            .doc(UserCredentialsController.schoolId)
             .collection('Teachers')
             .doc(value.user?.uid)
             .get();
@@ -340,27 +208,17 @@ class UserLoginController extends GetxController {
         }
 
         if (UserCredentialsController.teacherModel?.userRole == "teacher") {
-          //       Scaffold(
-          //   body: SafeArea(child: Center(
-          //     child: TextFontWidget(text: "under Maintenance.........", fontsize: 20),
-          //   )),
-          // );
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.userRoleKey, 'teacher');
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.schoolIdKey, schoolID!);
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.schoolNameKey, schoolName!);
-          await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.batchIdKey,
-              batchCtrl.batchyearValue.value);
-          await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.classIdKey, classCtrl.classDocID.value);
           if (context.mounted) {
             logined.value = true;
             Navigator.pushAndRemoveUntil(context,
                 MaterialPageRoute(builder: (context) {
-              return const SplashScreen();
+              return SplashScreen();
             }), (route) => false);
           }
           isLoading.value = false;
@@ -423,128 +281,13 @@ class UserLoginController extends GetxController {
     }
   }
 
-  setBatchYear(BuildContext context) async {
-    showDialog(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return Form(
-          key: _secondFormkey,
-          child: AlertDialog(
-            title: const Text('Add BatchYear'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  TextFormField(
-                    validator: (value) {
-                      if (applynewBatchYearContoller.text.isEmpty) {
-                        return 'Invalid';
-                      } else {
-                        return null;
-                      }
-                    },
-                    controller: applynewBatchYearContoller,
-                    readOnly: true,
-                    onTap: () => _selectDate(context),
-                    decoration: const InputDecoration(
-                      labelText: 'DD-MM-YYYY',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const Icon(Icons.arrow_downward_outlined),
-                  TextFormField(
-                    controller: selectedToDaterContoller,
-                    validator: (value) {
-                      if (selectedToDaterContoller.text.isEmpty) {
-                        return 'Invalid';
-                      } else {
-                        return null;
-                      }
-                    },
-                    readOnly: true,
-                    onTap: () => _selectToDate(context),
-                    decoration: const InputDecoration(
-                      labelText: 'To',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Cancel'),
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: const Text('Create'),
-                onPressed: () async {
-                  if (_secondFormkey.currentState!.validate()) {
-                    await server
-                        .collection('DrivingSchoolCollection')
-                        .doc(schoolID)
-                        .collection("BatchYear")
-                        .doc(
-                            '${applynewBatchYearContoller.text.trim()}-${selectedToDaterContoller.text.trim()}')
-                        .set({
-                      'id':
-                          '${applynewBatchYearContoller.text.trim()}-${selectedToDaterContoller.text.trim()}'
-                    }).then((value) async {
-                      await server
-                          .collection('DrivingSchoolCollection')
-                          .doc(schoolID)
-                          .set({
-                        'batchYear':
-                            "${applynewBatchYearContoller.text.trim()}-${selectedToDaterContoller.text.trim()}"
-                      }, SetOptions(merge: true)).then((value) {
-                        return showDialog(
-                          context: context,
-                          barrierDismissible: false, // user must tap button!
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Message'),
-                              content: const SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
-                                    Text(
-                                        'Batch added successfully, Please login again.')
-                                  ],
-                                ),
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text('Ok'),
-                                  onPressed: () {
-                                    html.window.location.reload();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      });
-                    });
-                  }
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   RxString loginData = ''.obs;
   RxBool logined = false.obs;
   Future<void> loginSaveData() async {
     try {
       log("***************loginSaveData*************************");
       log("Sherf P schhol ID ${UserCredentialsController.schoolId}");
-      log(" Local School Id  $schoolID");
-      log("Sherf P batchID ${UserCredentialsController.batchId}");
-      log(" Local batchID $batchID");
+      // log(" Local School Id  $schoolID");
       final date = DateTime.now();
       DateTime parseDate = DateTime.parse(date.toString());
       final month = DateFormat('MMMM-yyyy');
@@ -556,8 +299,6 @@ class UserLoginController extends GetxController {
       await server
           .collection('DrivingSchoolCollection')
           .doc(UserCredentialsController.schoolId)
-          .collection(UserCredentialsController.batchId ?? batchID)
-          .doc(UserCredentialsController.batchId ?? batchID)
           .collection("LoginHistory")
           .doc(monthwise)
           .set({
@@ -566,8 +307,8 @@ class UserLoginController extends GetxController {
         await server
             .collection('DrivingSchoolCollection')
             .doc(UserCredentialsController.schoolId)
-            .collection(UserCredentialsController.batchId ?? batchID)
-            .doc(UserCredentialsController.batchId ?? batchID)
+            // .collection(UserCredentialsController.batchId ?? batchID)
+            // .doc(UserCredentialsController.batchId ?? batchID)
             .collection("LoginHistory")
             .doc(monthwise)
             .collection(monthwise)
@@ -581,8 +322,8 @@ class UserLoginController extends GetxController {
           await server
               .collection('DrivingSchoolCollection')
               .doc(UserCredentialsController.schoolId)
-              .collection(UserCredentialsController.batchId ?? batchID)
-              .doc(UserCredentialsController.batchId ?? batchID)
+              // .collection(UserCredentialsController.batchId ?? batchID)
+              // .doc(UserCredentialsController.batchId ?? batchID)
               .collection("LoginHistory")
               .doc(monthwise)
               .collection(monthwise)
@@ -600,7 +341,7 @@ class UserLoginController extends GetxController {
       });
       logined.value = false;
     } catch (e) {
-      print(e);
+      print("loginSaveData $e ");
     }
   }
 
@@ -615,8 +356,8 @@ class UserLoginController extends GetxController {
     await server
         .collection('DrivingSchoolCollection')
         .doc(UserCredentialsController.schoolId)
-        .collection(UserCredentialsController.batchId!)
-        .doc(UserCredentialsController.batchId)
+        // .collection(UserCredentialsController.batchId!)
+        // .doc(UserCredentialsController.batchId)
         .collection("LoginHistory")
         .doc(monthwise)
         .collection(monthwise)

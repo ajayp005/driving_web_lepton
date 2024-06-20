@@ -1,34 +1,34 @@
-import 'dart:async';
+import 'dart:developer';
 
+import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/get.dart';
 import 'package:new_project_driving/info/info.dart';
 import 'package:new_project_driving/view/colors/colors.dart';
+import 'package:new_project_driving/view/controller/school_controller/school_controller.dart';
+import 'package:new_project_driving/view/controller/user_auth/user_auth_controller.dart';
+import 'package:new_project_driving/view/controller/user_login_Controller/user_login_controller.dart';
 import 'package:new_project_driving/view/fonts/google_monstre.dart';
-import 'package:new_project_driving/view/home/home_page/home_screen/home_screen.dart';
+import 'package:new_project_driving/view/utils/user_auth/user_credentials.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  final UserAuthController userLoginController = Get.put(UserAuthController());
+  final SchoolController schoolController = Get.put(SchoolController());
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Navigate to HomeScreen after 3 seconds
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-    });
-  }
+  SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (userLoginController.loginAuthState.value == true) {
+      log("****************TRUE");
+      log("Get.find<UserLoginController>().logined.value ${Get.find<UserLoginController>().logined.value}");
+      Get.put(UserLoginController());
+    }
+    if (UserCredentialsController.schoolId == null) {
+      schoolController.fetchAllSchoolData();
+    }
+    nextpage();
     return Scaffold(
       backgroundColor: cWhite,
       body: SafeArea(
@@ -39,18 +39,20 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: AnimationConfiguration.staggeredGrid(
               position: 1,
-              duration: const Duration(milliseconds: 5000),
+              duration: const Duration(milliseconds: 4000),
               columnCount: 3,
               child: ScaleAnimation(
-                duration: const Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 900),
                 curve: Curves.fastLinearToSlowEaseIn,
                 child: FadeInAnimation(
                   child: Container(
-                    height: 220,
-                    width: 220,
+                    height: 220.h,
+                    width: 220.w,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                      image: AssetImage(logoImage),
+                      image: AssetImage(
+                        logoImage,
+                      ),
                     )),
                   ),
                 ),
@@ -60,19 +62,25 @@ class _SplashScreenState extends State<SplashScreen> {
           Center(
             child: AnimationConfiguration.staggeredGrid(
               position: 2,
-              duration: const Duration(milliseconds: 5000),
+              duration: const Duration(milliseconds: 4000),
               columnCount: 3,
               child: ScaleAnimation(
-                duration: const Duration(milliseconds: 1000),
+                duration: const Duration(milliseconds: 900),
                 curve: Curves.fastLinearToSlowEaseIn,
                 child: FadeInAnimation(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GoogleMonstserratWidgets(
-                        text: 'Lepton Communication',
+                        text: separate,
                         fontsize: 25,
                         color: const Color.fromARGB(255, 230, 18, 3),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      GoogleMonstserratWidgets(
+                        text: separatetwo,
+                        fontsize: 25,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ],
@@ -85,10 +93,9 @@ class _SplashScreenState extends State<SplashScreen> {
       )),
     );
   }
-}
 
-// void main() {
-//   runApp(const MaterialApp(
-//     home: SplashScreen(),
-//   ));
-// }
+  nextpage() async {
+    Future.delayed(const Duration(seconds: 3))
+        .then((value) => userLoginController.checkSavedLoginAuth());
+  }
+}

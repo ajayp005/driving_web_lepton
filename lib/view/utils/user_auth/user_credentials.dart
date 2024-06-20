@@ -7,20 +7,16 @@ import 'package:new_project_driving/view/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
-  static String batchIdKey = 'batchId';
   static String schoolIdKey = 'schoolId';
   static String schoolNameKey = 'schoolName';
-  static String classIdKey = 'classId';
   static String userRoleKey = 'userRole';
   static String userloginKey = 'loginkey';
   static String currentUserDocid = 'currentUserDocid';
   static late SharedPreferences _prefs;
 
   static Future<void> clearSharedPreferenceData() async {
-    await setString(batchIdKey, "");
     await setString(schoolIdKey, "");
     await setString(schoolNameKey, "");
-    await setString(classIdKey, "");
     await setString(userRoleKey, "");
     await setString(userloginKey, "");
     await setString(currentUserDocid, "");
@@ -48,15 +44,11 @@ class SharedPreferencesHelper {
 
     return result;
   }
-
-  // Add more functions as needed
 }
 
 class UserCredentialsController {
   static String? schoolId;
   static String? schoolName;
-  static String? batchId;
-  static String? classId;
   static String? userRole;
   static String? userloginKey;
   static String? currentUserDocid;
@@ -67,8 +59,6 @@ class UserCredentialsController {
   static void clearUserCredentials() {
     schoolId = null;
     schoolName = null;
-    batchId = null;
-    classId = null;
     userRole = null;
     studentModel = null;
     adminModel = null;
@@ -80,7 +70,7 @@ class UserCredentialsController {
 
 logoutUser() async {
   await FirebaseAuth.instance.signOut().then((value) async {
-    Get.offAll(const SplashScreen());
+    Get.offAll(SplashScreen());
     await SharedPreferencesHelper.clearSharedPreferenceData();
     UserCredentialsController.clearUserCredentials();
   });

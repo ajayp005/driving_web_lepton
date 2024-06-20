@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_project_driving/view/constant/const.dart';
+import 'package:new_project_driving/view/login_section/user_loginpage.dart';
 import 'package:new_project_driving/view/model/teacher_model/teacher_model.dart';
 import 'package:new_project_driving/view/utils/firebase/firebase.dart';
 import 'package:new_project_driving/view/utils/user_auth/user_credentials.dart';
@@ -107,7 +108,8 @@ class TeacherSignUpController extends GetxController {
                       content: const SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
-                            Text('Your Profile Created Successfully ')
+                            Text(
+                                'Your Profile Created Successfully ...login again to continue...')
                           ],
                         ),
                       ),
@@ -115,6 +117,14 @@ class TeacherSignUpController extends GetxController {
                         TextButton(
                           child: const Text('Ok'),
                           onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const UserLoginPageScreen();
+                                },
+                              ),
+                            );
                             // Navigator.pushReplacement(
                             //   context,
                             //   MaterialPageRoute(
