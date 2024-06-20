@@ -38,22 +38,11 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      InkWell(
-                        // onTap: () async {
-                        //   if (kDebugMode) {
-                        //     print("logoutUser");
-                        //   }
-                        //   await Get.find<UserLoginController>()
-                        //       .logoutSaveData()
-                        //       .then((value) => logoutUser());
-                        //   logoutUser();
-                        // },
-                        child: Image.asset(
-                          'assets/images/leptonlogo.png',
-                          fit: BoxFit.contain,
-                          height: ResponsiveWebSite.isMobile(context) ? 40 : 60,
-                          width: ResponsiveWebSite.isMobile(context) ? 40 : 60,
-                        ),
+                      Image.asset(
+                        'assets/images/leptonlogo.png',
+                        fit: BoxFit.contain,
+                        height: ResponsiveWebSite.isMobile(context) ? 40 : 60,
+                        width: ResponsiveWebSite.isMobile(context) ? 40 : 60,
                       ),
                     ],
                   ),

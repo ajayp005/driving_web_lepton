@@ -5,13 +5,14 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:new_project_driving/constant/const.dart';
 import 'package:new_project_driving/controller/user_login_Controller/user_login_controller.dart';
-import 'package:new_project_driving/view/home/home_page/home_screen/home_screen.dart';
-import 'package:new_project_driving/view/home/main_screen.dart';
 import 'package:new_project_driving/model/student_model/student_model.dart';
 import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
-import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
+import 'package:new_project_driving/view/home/home_page/home_screen/home_screen.dart';
+import 'package:new_project_driving/view/home/main_screen.dart';
+import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
+import 'package:new_project_driving/view/users/admin/home/admin_home.dart';
 
 class UserAuthController extends GetxController {
   RxBool loginAuthState = false.obs;
@@ -47,8 +48,8 @@ class UserAuthController extends GetxController {
               .loginSaveData()
               .then((value) => Get.offAll(() => SplashScreen()));
         } else {
-          log("Get.offAll(() =>  AdminHomeScreen());  GOING TO ROUTE /HomeScreen");
-          Get.offAll(() => HomeScreen());
+          log("Get.offAll(() =>  AdminHomeScreen());  GOING TO ROUTE /AdminHomeScreen");
+          Get.offAll(() => const AdminHomeScreen());
         }
       } else if (UserCredentialsController.userRole == 'student') {
         await checkStudent(auth);

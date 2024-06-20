@@ -10,10 +10,10 @@ import 'package:new_project_driving/constant/constant.validate.dart';
 import 'package:new_project_driving/controller/class_controller/class_controller.dart';
 import 'package:new_project_driving/model/student_model/student_model.dart';
 import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
-import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
 import 'package:new_project_driving/utils/firebase/errors.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
+import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
 
 class UserLoginController extends GetxController {
   final classCtrl = Get.put(ClassController());
@@ -54,10 +54,7 @@ class UserLoginController extends GetxController {
               SharedPreferencesHelper.schoolIdKey, schoolID!);
           await SharedPreferencesHelper.setString(
                   SharedPreferencesHelper.schoolNameKey, schoolName!)
-              // await SharedPreferencesHelper.setString(
-              //         SharedPreferencesHelper.batchIdKey, user.data()?['batchYear'])
               .then((value) async {
-            // batchID = user.data()?['batchYear'];
             logined.value = true;
             userEmailIDController.clear();
             userPasswordController.clear();
@@ -96,9 +93,7 @@ class UserLoginController extends GetxController {
         log("Admin ID $userUID");
         log("schoolID ID $schoolID");
         userUID.value = authvalue.user!.uid;
-        // if (user.data()?['batchYear'] == '') {
-        //   setBatchYear(context);
-        // } else {
+
         if (userUID.value == schoolID) {
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.userRoleKey, 'admin');
@@ -119,7 +114,6 @@ class UserLoginController extends GetxController {
           log("trying secondaryAdminLogin");
           await secondaryAdminLogin();
         }
-        // }
       }).catchError((error) {
         if (error is FirebaseAuthException) {
           isLoading.value = false;
@@ -239,48 +233,6 @@ class UserLoginController extends GetxController {
     }
   }
 
-  TextEditingController applynewBatchYearContoller = TextEditingController();
-  TextEditingController selectedToDaterContoller = TextEditingController();
-  final Rxn<DateTime> _selectedDateForApplyDate = Rxn<DateTime>();
-  final Rxn<DateTime> _selectedToDate = Rxn<DateTime>();
-  _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedDateForApplyDate.value ?? DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null && picked != _selectedDateForApplyDate.value) {
-      _selectedDateForApplyDate.value = picked;
-      DateTime parseDate =
-          DateTime.parse(_selectedDateForApplyDate.value.toString());
-      final DateFormat formatter = DateFormat('yyyy-MMMM');
-      String formatted = formatter.format(parseDate);
-
-      applynewBatchYearContoller.text = formatted.toString();
-      log(formatted.toString());
-    }
-  }
-
-  _selectToDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: _selectedToDate.value ?? DateTime.now(),
-      firstDate: DateTime(2023),
-      lastDate: DateTime(2100),
-      // builder: (context, child) {},
-    );
-    if (picked != null && picked != _selectedToDate.value) {
-      _selectedToDate.value = picked;
-      DateTime parseDate = DateTime.parse(_selectedToDate.value.toString());
-      final DateFormat formatter = DateFormat('yyyy-MMMM');
-      String formatted = formatter.format(parseDate);
-
-      selectedToDaterContoller.text = formatted.toString();
-      log(formatted.toString());
-    }
-  }
-
   RxString loginData = ''.obs;
   RxBool logined = false.obs;
   Future<void> loginSaveData() async {
@@ -307,8 +259,6 @@ class UserLoginController extends GetxController {
         await server
             .collection('DrivingSchoolCollection')
             .doc(UserCredentialsController.schoolId)
-            // .collection(UserCredentialsController.batchId ?? batchID)
-            // .doc(UserCredentialsController.batchId ?? batchID)
             .collection("LoginHistory")
             .doc(monthwise)
             .collection(monthwise)
