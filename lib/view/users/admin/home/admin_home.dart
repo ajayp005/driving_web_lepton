@@ -25,8 +25,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: UserCredentialsController.schoolId !=
-                FirebaseAuth.instance.currentUser!.uid
+        stream: UserCredentialsController.schoolId != FirebaseAuth.instance.currentUser!.uid
             ? server
                 .collection('DrivingSchoolCollection')
                 .doc(UserCredentialsController.schoolId)
@@ -41,8 +40,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     body: SafeArea(
                         child: Center(
                       child: TextFontWidget(
-                          text: "Waiting for superadmin response.....",
-                          fontsize: 20),
+                          text: "Waiting for superadmin response.....", fontsize: 20),
                     )),
                   )
                 : Scaffold(
@@ -76,19 +74,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                           ),
                                           GooglePoppinsWidgets(
                                             text: institutionName,
-                                            fontsize:
-                                                ResponsiveWebSite.isMobile(
-                                                        context)
-                                                    ? 18
-                                                    : 20,
+                                            fontsize: ResponsiveWebSite.isMobile(context) ? 18 : 20,
                                             fontWeight: FontWeight.w500,
                                           )
                                         ],
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 10, top: 12),
+                                      padding: const EdgeInsets.only(left: 10, top: 12),
                                       child: GestureDetector(
                                         child: Text(
                                           "Main Menu",
@@ -118,8 +111,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           )),
                     ),
                   );
-          } else if (UserCredentialsController.schoolId ==
-              FirebaseAuth.instance.currentUser!.uid) {
+          } else if (UserCredentialsController.schoolId == FirebaseAuth.instance.currentUser!.uid) {
             return Scaffold(
               backgroundColor: cWhite,
               body: SafeArea(
@@ -151,18 +143,14 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                     ),
                                     GooglePoppinsWidgets(
                                       text: institutionName,
-                                      fontsize:
-                                          ResponsiveWebSite.isMobile(context)
-                                              ? 18
-                                              : 20,
+                                      fontsize: ResponsiveWebSite.isMobile(context) ? 18 : 20,
                                       fontWeight: FontWeight.w500,
                                     )
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, top: 12),
+                                padding: const EdgeInsets.only(left: 10, top: 12),
                                 child: Text(
                                   "Main Menu",
                                   style: TextStyle(
