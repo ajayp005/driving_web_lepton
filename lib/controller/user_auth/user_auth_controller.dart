@@ -9,10 +9,11 @@ import 'package:new_project_driving/model/student_model/student_model.dart';
 import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
-import 'package:new_project_driving/view/home/home_page/home_screen/home_screen.dart';
 import 'package:new_project_driving/view/home/main_screen.dart';
 import 'package:new_project_driving/view/splash_screen/splash_screen.dart';
 import 'package:new_project_driving/view/users/admin/home/admin_home.dart';
+import 'package:new_project_driving/view/users/admin/home/student_home.dart';
+import 'package:new_project_driving/view/users/admin/home/tutor_home.dart';
 
 class UserAuthController extends GetxController {
   RxBool loginAuthState = false.obs;
@@ -22,13 +23,12 @@ class UserAuthController extends GetxController {
 
     UserCredentialsController.userRole =
         SharedPreferencesHelper.getString(SharedPreferencesHelper.userRoleKey);
-    UserCredentialsController.schoolName = SharedPreferencesHelper.getString(
-        SharedPreferencesHelper.schoolNameKey);
+    UserCredentialsController.schoolName =
+        SharedPreferencesHelper.getString(SharedPreferencesHelper.schoolNameKey);
     UserCredentialsController.userloginKey =
         SharedPreferencesHelper.getString(SharedPreferencesHelper.userloginKey);
     UserCredentialsController.currentUserDocid =
-        SharedPreferencesHelper.getString(
-            SharedPreferencesHelper.currentUserDocid);
+        SharedPreferencesHelper.getString(SharedPreferencesHelper.currentUserDocid);
 
     if (auth.currentUser == null) {
       if (kDebugMode) {
@@ -86,16 +86,15 @@ Future<void> checkStudent(FirebaseAuth auth) async {
       .get();
 
   if (studentData.data() != null) {
-    UserCredentialsController.studentModel =
-        StudentModel.fromMap(studentData.data()!);
+    UserCredentialsController.studentModel = StudentModel.fromMap(studentData.data()!);
     if (Get.find<UserLoginController>().logined.value == true) {
       Get.find<UserLoginController>()
           .loginSaveData()
           .then((value) => Get.offAll(() => SplashScreen()));
     } else {
       log("Get.offAll(() => const StudentHomeScreen());");
-      // Get.offAll(() => const StudentHomeScreen());
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const StudentHomeScreen());
+      // Get.offAll(() => HomeScreen());
     }
   } else {
     showToast(msg: "Please login again");
@@ -116,16 +115,15 @@ Future<void> checkTeacher(FirebaseAuth auth) async {
       .get();
 
   if (teacherModel.data() != null) {
-    UserCredentialsController.teacherModel =
-        TeacherModel.fromMap(teacherModel.data()!);
+    UserCredentialsController.teacherModel = TeacherModel.fromMap(teacherModel.data()!);
     if (Get.find<UserLoginController>().logined.value == true) {
       Get.find<UserLoginController>()
           .loginSaveData()
           .then((value) => Get.offAll(() => SplashScreen()));
     } else {
       log("Get.offAll(() => const TeachersHomeScreen());");
-      // Get.offAll(() => const TeachersHomeScreen());
-      Get.offAll(() => HomeScreen());
+      Get.offAll(() => const TutorHomeScreen());
+      // Get.offAll(() =>const AdminHomeScreen());
     }
   } else {
     showToast(msg: "Please login again");

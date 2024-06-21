@@ -9,8 +9,8 @@ import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:sidebar_drawer/sidebar_drawer.dart';
 
 // ignore: must_be_immutable
-class AppBarAdminPanel extends StatelessWidget {
-  AppBarAdminPanel({
+class AppBarStudentPanel extends StatelessWidget {
+  AppBarStudentPanel({
     super.key,
   });
 
@@ -163,7 +163,7 @@ class AppBarAdminPanel extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(right: 0),
                                 child: Text(
-                                  'Admin',
+                                  'Student',
                                   style: TextStyle(color: cBlack.withOpacity(0.5), fontSize: 10.7),
                                 ),
                               ),

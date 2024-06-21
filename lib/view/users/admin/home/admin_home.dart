@@ -7,6 +7,7 @@ import 'package:new_project_driving/info/info.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 import 'package:new_project_driving/view/users/admin/app_bar/admin_appBar.dart';
+import 'package:new_project_driving/view/users/admin/app_bar/tutor_appBar.dart';
 import 'package:new_project_driving/view/users/admin/drawer/drawer_pages.dart';
 import 'package:new_project_driving/view/users/admin/screens/registration/teachers_regi_container.dart';
 import 'package:new_project_driving/view/widget/loading_widget/loading_widget.dart';
@@ -118,7 +119,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 child: SidebarDrawer(
                     body: ListView(
                       children: [
-                        AppBarAdminPanel(),
+                        AppBarTutorPanel(),
                         pages[selectedIndex],
                       ],
                     ),
