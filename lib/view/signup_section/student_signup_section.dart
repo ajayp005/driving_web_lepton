@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:typed_data';
 
 import 'package:adaptive_ui_layout/flutter_responsive_layout.dart';
@@ -8,6 +10,7 @@ import 'package:lottie/lottie.dart';
 import 'package:new_project_driving/colors/colors.dart';
 import 'package:new_project_driving/constant/constant.validate.dart';
 import 'package:new_project_driving/controller/user_signup_controller/student_signup_controller.dart';
+import 'package:new_project_driving/controller/user_signup_controller/teacher_signup_controller.dart';
 import 'package:new_project_driving/fonts/fonts.dart';
 import 'package:new_project_driving/utils/utils.dart';
 import 'package:new_project_driving/view/widget/Iconbackbutton.dart';
@@ -18,12 +21,15 @@ class StudentProfileCreationScreen extends StatefulWidget {
   const StudentProfileCreationScreen({super.key});
 
   @override
-  State<StudentProfileCreationScreen> createState() => _StudentProfileCreationScreenState();
+  State<StudentProfileCreationScreen> createState() =>
+      _StudentProfileCreationScreenState();
 }
 
 StudentSignUpController studentSignUpController = StudentSignUpController();
+TeacherSignUpController teacherSignUpController = TeacherSignUpController();
 
-class _StudentProfileCreationScreenState extends State<StudentProfileCreationScreen> {
+class _StudentProfileCreationScreenState
+    extends State<StudentProfileCreationScreen> {
   Uint8List? file;
 
   @override
@@ -97,7 +103,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
             height: size.height,
             child: SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(left: size.width / 10, right: size.width / 10),
+                padding: EdgeInsets.only(
+                    left: size.width / 10, right: size.width / 10),
                 child: Form(
                   key: studentSignUpController.formKey,
                   child: Column(
@@ -108,7 +115,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: "Name",
                         icon: Icons.person,
                         keyboardType: TextInputType.text,
-                        textEditingController: studentSignUpController.nameController,
+                        textEditingController:
+                            studentSignUpController.nameController,
                         function: checkFieldEmpty,
                       ),
                       SizedBox(height: 10.h),
@@ -118,7 +126,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         icon: Icons.phone,
                         keyboardType: TextInputType.phone,
                         maxLength: 10,
-                        textEditingController: studentSignUpController.phoneController,
+                        textEditingController:
+                            studentSignUpController.phoneController,
                         function: checkFieldPhoneNumberIsValid,
                       ),
                       SizedBox(height: 10.h),
@@ -127,7 +136,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: 'DOB',
                         icon: Icons.calendar_today,
                         keyboardType: TextInputType.none,
-                        textEditingController: studentSignUpController.dateOfBirthController,
+                        textEditingController:
+                            studentSignUpController.dateOfBirthController,
                         function: checkFieldEmpty,
                         onTapFunction: () async {
                           studentSignUpController.dateOfBirthController.text =
@@ -140,7 +150,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: "Name",
                         icon: Icons.person,
                         keyboardType: TextInputType.text,
-                        textEditingController: studentSignUpController.fatherSpouseController,
+                        textEditingController:
+                            studentSignUpController.fatherSpouseController,
                         function: checkFieldEmpty,
                       ),
                       SizedBox(height: 10.h),
@@ -149,7 +160,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: "Place",
                         icon: Icons.location_city,
                         keyboardType: TextInputType.text,
-                        textEditingController: studentSignUpController.placeController,
+                        textEditingController:
+                            studentSignUpController.placeController,
                         function: checkFieldEmpty,
                       ),
                       SizedBox(height: 10.h),
@@ -158,7 +170,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: "Address",
                         icon: Icons.location_on,
                         keyboardType: TextInputType.multiline,
-                        textEditingController: studentSignUpController.addressController,
+                        textEditingController:
+                            studentSignUpController.addressController,
                         function: checkFieldEmpty,
                       ),
                       SizedBox(height: 10.h),
@@ -167,7 +180,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: "Name",
                         icon: Icons.person,
                         keyboardType: TextInputType.text,
-                        textEditingController: studentSignUpController.rtoNameController,
+                        textEditingController:
+                            studentSignUpController.rtoNameController,
                         function: checkFieldEmpty,
                       ),
                       SizedBox(height: 10.h),
@@ -176,12 +190,14 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         hintText: "Number",
                         icon: Icons.drive_file_rename_outline,
                         keyboardType: TextInputType.text,
-                        textEditingController: studentSignUpController.licenceController,
+                        textEditingController:
+                            studentSignUpController.licenceController,
                         function: checkFieldEmpty,
                       ),
                       const SizedBox(height: 10),
                       SignUpTextFormFieldWidget(
-                        textEditingController: studentSignUpController.emailController,
+                        textEditingController:
+                            studentSignUpController.emailController,
                         function: checkFieldEmailIsValid,
                         labelText: 'Enter email',
                         hintText: "Enter mail ID",
@@ -193,9 +209,11 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         child: TextFormField(
                           obscureText: true,
                           validator: checkFieldPasswordIsValid,
-                          controller: studentSignUpController.passwordController,
+                          controller:
+                              studentSignUpController.passwordController,
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
                             icon: const Icon(
                               Icons.lock_outline_sharp,
                               color: Color.fromARGB(221, 28, 9, 110),
@@ -209,14 +227,17 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                         child: TextFormField(
                           obscureText: true,
                           validator: (value) {
-                            if (value == studentSignUpController.passwordController.text) {
+                            if (value ==
+                                studentSignUpController
+                                    .passwordController.text) {
                               return null;
                             } else {
                               return 'Passwords do not match';
                             }
                           },
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
                             icon: const Icon(
                               Icons.lock_outline_sharp,
                               color: Color.fromARGB(221, 28, 9, 110),
@@ -242,7 +263,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                             bottom: 0,
                             child: IconButton(
                               onPressed: () async {
-                                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                                FilePickerResult? result =
+                                    await FilePicker.platform.pickFiles(
                                   type: FileType.image,
                                 );
                                 if (result != null) {
@@ -263,7 +285,8 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                           width: 150,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 3, 39, 68),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 3, 39, 68),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -289,42 +312,44 @@ class _StudentProfileCreationScreenState extends State<StudentProfileCreationScr
                                   ),
                                 );
                               } else {
-                                if (studentSignUpController.formKey.currentState!.validate()) {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Alert'),
-                                        content: const SingleChildScrollView(
-                                          child: ListBody(
-                                            children: [
-                                              Text('You are ready to use 7 days free trial.'),
-                                            ],
-                                          ),
-                                        ),
+                                if (studentSignUpController
+                                    .formKey.currentState!
+                                    .validate()) {
+                                  if (await teacherSignUpController
+                                      .isEmailInTempTeacherList(
+                                          studentSignUpController
+                                              .emailController.text)) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.all(Radius.zero)),
+                                        content: const Text(
+                                            "This Email can't used by the User"),
                                         actions: [
-                                          TextButton(
-                                            onPressed: () async {
-                                              String uid = const Uuid().v1();
-                                              UploadTask uploadTask = FirebaseStorage.instance
-                                                  .ref()
-                                                  .child("files/schoolProfile/$uid")
-                                                  .putData(file!);
-
-                                              final TaskSnapshot snap = await uploadTask;
-                                              studentSignUpController.downloadUrl.value =
-                                                  await snap.ref.getDownloadURL();
-
-                                              // // ignore: use_build_context_synchronously
-                                              await studentSignUpController.createStudent(context);
+                                          MaterialButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
                                             },
                                             child: const Text('OK'),
                                           ),
                                         ],
-                                      );
-                                    },
-                                  );
+                                      ),
+                                    );
+                                  } else {
+                                    String uid = const Uuid().v1();
+                                    UploadTask uploadTask = FirebaseStorage
+                                        .instance
+                                        .ref()
+                                        .child("files/schoolProfile/$uid")
+                                        .putData(file!);
+                                    final TaskSnapshot snap = await uploadTask;
+                                    studentSignUpController.downloadUrl.value =
+                                        await snap.ref.getDownloadURL();
+                                    await studentSignUpController
+                                        .createStudent(context);
+                                  }
                                 }
                               }
                             },

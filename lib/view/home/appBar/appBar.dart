@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_project_driving/colors/colors.dart';
+import 'package:new_project_driving/controller/user_login_Controller/user_login_controller.dart';
+import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 import 'package:new_project_driving/view/home/appBar/login_button.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,11 +42,22 @@ class ResponsiveMobileAppBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/leptonlogo.png',
-                        fit: BoxFit.contain,
-                        height: ResponsiveWebSite.isMobile(context) ? 40 : 60,
-                        width: ResponsiveWebSite.isMobile(context) ? 40 : 60,
+                      InkWell(
+                        onTap: () async {
+                          if (kDebugMode) {
+                            print("logoutUser");
+                          }
+                          await Get.find<UserLoginController>()
+                              .logoutSaveData()
+                              .then((value) => logoutUser());
+                          logoutUser();
+                        },
+                        child: Image.asset(
+                          'assets/images/leptonlogo.png',
+                          fit: BoxFit.contain,
+                          height: ResponsiveWebSite.isMobile(context) ? 40 : 60,
+                          width: ResponsiveWebSite.isMobile(context) ? 40 : 60,
+                        ),
                       ),
                     ],
                   ),

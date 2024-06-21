@@ -4,10 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_project_driving/constant/const.dart';
-import 'package:new_project_driving/view/login_section/user_loginpage.dart';
 import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
+import 'package:new_project_driving/view/login_section/user_loginpage.dart';
 import 'package:progress_state_button/progress_button.dart';
 import 'package:uuid/uuid.dart';
 
@@ -159,5 +159,23 @@ class TeacherSignUpController extends GetxController {
         buttonstate.value = ButtonState.idle;
       });
     }
+  }
+
+  Future<bool> isEmailInTempTeacherList(String email) async {
+    final temTcrList = await server
+        .collection('DrivingSchoolCollection')
+        .doc(UserCredentialsController.schoolId)
+        .collection('TempTeacherList')
+        .get();
+
+    for (var doc in temTcrList.docs) {
+      if (doc['teacheremail'] == email) {
+        final TeacherModel teacherModel = TeacherModel.fromMap(doc.data());
+        UserCredentialsController.teacherModel = teacherModel;
+        log(teacherModel.toString());
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -37,12 +37,13 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
 
   @override
   void initState() {
-    animationctr = AnimationController(vsync: this, duration: const Duration(seconds: 2))
-      ..addListener(() {
-        setState(() {});
-      });
-    colorAnimation = Tween(begin: 0.4, end: 1)
-        .animate(CurvedAnimation(parent: animationctr, curve: Curves.fastOutSlowIn));
+    animationctr =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..addListener(() {
+            setState(() {});
+          });
+    colorAnimation = Tween(begin: 0.4, end: 1).animate(
+        CurvedAnimation(parent: animationctr, curve: Curves.fastOutSlowIn));
 
     super.initState();
   }
@@ -55,15 +56,18 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
             : Builder(
                 builder: (context) => FabCircularMenuPlus(
                   fabChild: Container(
-                    decoration: const BoxDecoration(color: themeColorBlue, shape: BoxShape.circle),
+                    decoration: const BoxDecoration(
+                        color: themeColorBlue, shape: BoxShape.circle),
                     child: const Center(
                         child: Image(
-                            image: AssetImage('webassets/flact_png/icons8-fingerprint-100.png'))),
+                            image: AssetImage(
+                                'webassets/flact_png/icons8-fingerprint-100.png'))),
                   ),
                   key: fabKey,
                   alignment: Alignment.bottomRight,
                   ringColor: cWhite.withOpacity(0.4),
-                  ringDiameter: ResponsiveWebSite.isMobile(context) ? 580 : 1000.0,
+                  ringDiameter:
+                      ResponsiveWebSite.isMobile(context) ? 580 : 1000.0,
                   ringWidth: ResponsiveWebSite.isMobile(context) ? 200 : 300.0,
                   fabSize: ResponsiveWebSite.isMobile(context) ? 30 : 64.0,
                   fabElevation: ResponsiveWebSite.isMobile(context) ? 8.0 : 8.0,
@@ -88,8 +92,12 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                         child: Column(
                           children: [
                             Container(
-                              height: ResponsiveWebSite.isMobile(context) ? 50 : 100,
-                              width: ResponsiveWebSite.isMobile(context) ? 50 : 100,
+                              height: ResponsiveWebSite.isMobile(context)
+                                  ? 50
+                                  : 100,
+                              width: ResponsiveWebSite.isMobile(context)
+                                  ? 50
+                                  : 100,
                               decoration: BoxDecoration(
                                   color: cWhite,
                                   shape: BoxShape.circle,
@@ -125,8 +133,12 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                         child: Column(
                           children: [
                             Container(
-                              height: ResponsiveWebSite.isMobile(context) ? 50 : 100,
-                              width: ResponsiveWebSite.isMobile(context) ? 50 : 100,
+                              height: ResponsiveWebSite.isMobile(context)
+                                  ? 50
+                                  : 100,
+                              width: ResponsiveWebSite.isMobile(context)
+                                  ? 50
+                                  : 100,
                               decoration: BoxDecoration(
                                   color: cWhite,
                                   shape: BoxShape.circle,
@@ -138,7 +150,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                             ),
                             GooglePoppinsWidgets(
                               text: "TEACHER",
-                              fontsize: ResponsiveWebSite.isMobile(context) ? 10 : 12,
+                              fontsize:
+                                  ResponsiveWebSite.isMobile(context) ? 10 : 12,
                               fontWeight: FontWeight.bold,
                             )
                           ],
@@ -158,8 +171,12 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                         child: Column(
                           children: [
                             Container(
-                              height: ResponsiveWebSite.isMobile(context) ? 50 : 100,
-                              width: ResponsiveWebSite.isMobile(context) ? 50 : 100,
+                              height: ResponsiveWebSite.isMobile(context)
+                                  ? 50
+                                  : 100,
+                              width: ResponsiveWebSite.isMobile(context)
+                                  ? 50
+                                  : 100,
                               decoration: BoxDecoration(
                                   color: cWhite,
                                   shape: BoxShape.circle,
@@ -171,7 +188,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                             ),
                             GooglePoppinsWidgets(
                               text: "ADMIN",
-                              fontsize: ResponsiveWebSite.isMobile(context) ? 10 : 12,
+                              fontsize:
+                                  ResponsiveWebSite.isMobile(context) ? 10 : 12,
                               fontWeight: FontWeight.bold,
                             )
                           ],
@@ -195,7 +213,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
               return loginController.lodingContainer.value == true
                   ? Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 50, bottom: 0, right: 50),
+                        padding: const EdgeInsets.only(
+                            left: 50, bottom: 0, right: 50),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -217,11 +236,18 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                       top: 45,
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Container(
-                                          height: ResponsiveWebSite.isMobile(context) ? 20 : 40,
-                                          width: ResponsiveWebSite.isMobile(context) ? 20 : 40,
+                                          height: ResponsiveWebSite.isMobile(
+                                                  context)
+                                              ? 20
+                                              : 40,
+                                          width: ResponsiveWebSite.isMobile(
+                                                  context)
+                                              ? 20
+                                              : 40,
                                           decoration: const BoxDecoration(
                                             image: DecorationImage(
                                               image: AssetImage(logoImage),
@@ -248,7 +274,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                             Icons.email,
                                             size: 15,
                                           ),
-                                          controller: loginController.userEmailIDController,
+                                          controller: loginController
+                                              .userEmailIDController,
                                           hintText: 'Enter your email',
                                           title: "Email",
                                           width: 300),
@@ -263,19 +290,23 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                             Icons.lock,
                                             size: 15,
                                           ),
-                                          controller: loginController.userPasswordController,
+                                          controller: loginController
+                                              .userPasswordController,
                                           hintText: 'Enter your password',
                                           title: "Password",
                                           width: 300),
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 30, bottom: 30),
+                                    padding: const EdgeInsets.only(
+                                        top: 30, bottom: 30),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
                                           children: [
                                             Checkbox(
                                               value: isChecked,
@@ -311,14 +342,19 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                     child: GestureDetector(
                                       onTap: () async {
                                         istapped = true;
-                                        animationctr.forward().then((value) async {
-                                          if (fabKey.currentState?.isOpen ?? false) {
+                                        animationctr
+                                            .forward()
+                                            .then((value) async {
+                                          if (fabKey.currentState?.isOpen ??
+                                              false) {
                                             fabKey.currentState?.close();
                                           } else {
                                             fabKey.currentState?.open();
-                                            Future.delayed(const Duration(seconds: 3))
+                                            Future.delayed(
+                                                    const Duration(seconds: 3))
                                                 .then((value) async {
-                                              loginController.lodingContainer.value = true;
+                                              loginController
+                                                  .lodingContainer.value = true;
                                             });
                                           }
                                         });
@@ -327,7 +363,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                         height: 40,
                                         width: 300,
                                         decoration: const BoxDecoration(
-                                          color: Color.fromARGB(255, 14, 40, 97),
+                                          color:
+                                              Color.fromARGB(255, 14, 40, 97),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -350,13 +387,17 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                 onTap: () {
                                   showDialog(
                                     context: context,
-                                    barrierDismissible: false, // user must tap button!
+                                    barrierDismissible:
+                                        false, // user must tap button!
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: const Text('Enter Your School ID'),
+                                        title:
+                                            const Text('Enter Your School ID'),
                                         content: const SingleChildScrollView(
                                           child: ListBody(
-                                            children: <Widget>[UserTypeDropDownButton()],
+                                            children: <Widget>[
+                                              UserTypeDropDownButton()
+                                            ],
                                           ),
                                         ),
                                         actions: <Widget>[
@@ -368,10 +409,13 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                                   context: context,
                                                   barrierDismissible:
                                                       false, // user must tap button!
-                                                  builder: (BuildContext context) {
+                                                  builder:
+                                                      (BuildContext context) {
                                                     return AlertDialog(
-                                                      title: const Text('Alert'),
-                                                      content: const SingleChildScrollView(
+                                                      title:
+                                                          const Text('Alert'),
+                                                      content:
+                                                          const SingleChildScrollView(
                                                         child: ListBody(
                                                           children: <Widget>[
                                                             Text(
@@ -381,23 +425,30 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                                       ),
                                                       actions: <Widget>[
                                                         TextButton(
-                                                          child: const Text('Ok'),
+                                                          child:
+                                                              const Text('Ok'),
                                                           onPressed: () {
-                                                            Navigator.of(context).pop();
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
                                                           },
                                                         ),
                                                       ],
                                                     );
                                                   },
                                                 );
-                                              } else if (selectedUserType == 'teacher') {
-                                                await Navigator.push(context, MaterialPageRoute(
+                                              } else if (selectedUserType ==
+                                                  'teacher') {
+                                                await Navigator.push(context,
+                                                    MaterialPageRoute(
                                                   builder: (context) {
                                                     return const TeacherProfileCreationScreen();
                                                   },
                                                 ));
-                                              } else if (selectedUserType == 'student') {
-                                                await Navigator.push(context, MaterialPageRoute(
+                                              } else if (selectedUserType ==
+                                                  'student') {
+                                                await Navigator.push(context,
+                                                    MaterialPageRoute(
                                                   builder: (context) {
                                                     return const StudentProfileCreationScreen();
                                                   },
@@ -434,7 +485,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
             } else {
               return Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 50, bottom: 0, right: 50),
+                  padding:
+                      const EdgeInsets.only(left: 50, bottom: 0, right: 50),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -455,8 +507,12 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    height: ResponsiveWebSite.isMobile(context) ? 20 : 40,
-                                    width: ResponsiveWebSite.isMobile(context) ? 20 : 40,
+                                    height: ResponsiveWebSite.isMobile(context)
+                                        ? 20
+                                        : 40,
+                                    width: ResponsiveWebSite.isMobile(context)
+                                        ? 20
+                                        : 40,
                                     decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: AssetImage(logoImage),
@@ -483,7 +539,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                       Icons.email,
                                       size: 15,
                                     ),
-                                    controller: loginController.userEmailIDController,
+                                    controller:
+                                        loginController.userEmailIDController,
                                     hintText: 'Enter your email',
                                     title: "Email",
                                     width: 300),
@@ -498,19 +555,23 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                       Icons.lock,
                                       size: 15,
                                     ),
-                                    controller: loginController.userPasswordController,
+                                    controller:
+                                        loginController.userPasswordController,
                                     hintText: 'Enter your password',
                                     title: "Password",
                                     width: 300),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 30, bottom: 30),
+                              padding:
+                                  const EdgeInsets.only(top: 30, bottom: 30),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       Checkbox(
                                         value: isChecked,
@@ -556,7 +617,8 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                       fabKey.currentState?.open();
                                       Future.delayed(const Duration(seconds: 2))
                                           .then((value) async {
-                                        loginController.lodingContainer.value = true;
+                                        loginController.lodingContainer.value =
+                                            true;
                                       });
                                     }
                                   });
@@ -588,13 +650,16 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                           onTap: () {
                             showDialog(
                               context: context,
-                              barrierDismissible: false, // user must tap button!
+                              barrierDismissible:
+                                  false, // user must tap button!
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   title: const Text('Select Your User Role'),
                                   content: const SingleChildScrollView(
                                     child: ListBody(
-                                      children: <Widget>[UserTypeDropDownButton()],
+                                      children: <Widget>[
+                                        UserTypeDropDownButton()
+                                      ],
                                     ),
                                   ),
                                   actions: <Widget>[
@@ -604,14 +669,17 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                         if (selectedUserType == null) {
                                           return showDialog(
                                             context: context,
-                                            barrierDismissible: false, // user must tap button!
+                                            barrierDismissible:
+                                                false, // user must tap button!
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 title: const Text('Alert'),
-                                                content: const SingleChildScrollView(
+                                                content:
+                                                    const SingleChildScrollView(
                                                   child: ListBody(
                                                     children: <Widget>[
-                                                      Text('Sorry you have no access to delete')
+                                                      Text(
+                                                          'Sorry you have no access to delete')
                                                     ],
                                                   ),
                                                 ),
@@ -619,21 +687,26 @@ class _UserLoginPageScreenState extends State<UserLoginPageScreen>
                                                   TextButton(
                                                     child: const Text('Ok'),
                                                     onPressed: () {
-                                                      Navigator.of(context).pop();
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
                                                   ),
                                                 ],
                                               );
                                             },
                                           );
-                                        } else if (selectedUserType == 'teacher') {
-                                          await Navigator.push(context, MaterialPageRoute(
+                                        } else if (selectedUserType ==
+                                            'teacher') {
+                                          await Navigator.push(context,
+                                              MaterialPageRoute(
                                             builder: (context) {
                                               return const TeacherProfileCreationScreen();
                                             },
                                           ));
-                                        } else if (selectedUserType == 'student') {
-                                          await Navigator.push(context, MaterialPageRoute(
+                                        } else if (selectedUserType ==
+                                            'student') {
+                                          await Navigator.push(context,
+                                              MaterialPageRoute(
                                             builder: (context) {
                                               return const StudentProfileCreationScreen();
                                             },
@@ -737,7 +810,8 @@ class TextFormFiledContainerLoginWidget extends StatelessWidget {
                   ),
                 ),
                 contentPadding: const EdgeInsets.all(8.0),
-                enabledBorder: const OutlineInputBorder(borderSide: BorderSide(width: 0.4)),
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(width: 0.4)),
                 hintStyle: const TextStyle(fontSize: 13),
                 hintText: hintText,
                 suffixIcon: icon,

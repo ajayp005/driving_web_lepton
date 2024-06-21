@@ -90,17 +90,17 @@ class UserLoginController extends GetxController {
           .then((authvalue) async {
         await SharedPreferencesHelper.setString(
             SharedPreferencesHelper.currentUserDocid, authvalue.user!.uid);
+        userUID.value = authvalue.user!.uid;
         log("Admin ID $userUID");
         log("schoolID ID $schoolID");
-        userUID.value = authvalue.user!.uid;
 
         if (userUID.value == schoolID) {
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.userRoleKey, 'admin');
           await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.schoolIdKey, schoolID!);
-          await SharedPreferencesHelper.setString(
-                  SharedPreferencesHelper.schoolNameKey, schoolName!)
+                  SharedPreferencesHelper.schoolIdKey, schoolID!)
+              // await SharedPreferencesHelper.setString(
+              //         SharedPreferencesHelper.schoolNameKey, schoolName!)
               .then((value) async {
             log("SchoolID :  ${UserCredentialsController.schoolId}");
             log("userrole :  ${UserCredentialsController.userRole}");
@@ -152,8 +152,8 @@ class UserLoginController extends GetxController {
               SharedPreferencesHelper.userRoleKey, 'student');
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.schoolIdKey, schoolID!);
-          await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.schoolNameKey, schoolName!);
+          // await SharedPreferencesHelper.setString(
+          //     SharedPreferencesHelper.schoolNameKey, schoolName!);
           if (context.mounted) {
             logined.value = true;
             Navigator.pushAndRemoveUntil(context,
@@ -206,8 +206,8 @@ class UserLoginController extends GetxController {
               SharedPreferencesHelper.userRoleKey, 'teacher');
           await SharedPreferencesHelper.setString(
               SharedPreferencesHelper.schoolIdKey, schoolID!);
-          await SharedPreferencesHelper.setString(
-              SharedPreferencesHelper.schoolNameKey, schoolName!);
+          // await SharedPreferencesHelper.setString(
+          //     SharedPreferencesHelper.schoolNameKey, schoolName!);
           if (context.mounted) {
             logined.value = true;
             Navigator.pushAndRemoveUntil(context,
@@ -272,8 +272,6 @@ class UserLoginController extends GetxController {
           await server
               .collection('DrivingSchoolCollection')
               .doc(UserCredentialsController.schoolId)
-              // .collection(UserCredentialsController.batchId ?? batchID)
-              // .doc(UserCredentialsController.batchId ?? batchID)
               .collection("LoginHistory")
               .doc(monthwise)
               .collection(monthwise)
@@ -296,7 +294,7 @@ class UserLoginController extends GetxController {
   }
 
   Future<void> logoutSaveData() async {
-    print('logout Key${UserCredentialsController.userloginKey}');
+    log('logout Key${UserCredentialsController.userloginKey}');
     final date = DateTime.now();
     DateTime parseDate = DateTime.parse(date.toString());
     final month = DateFormat('MMMM-yyyy');

@@ -9,6 +9,7 @@ import 'package:new_project_driving/colors/colors.dart';
 import 'package:new_project_driving/constant/constant.validate.dart';
 import 'package:new_project_driving/controller/user_signup_controller/teacher_signup_controller.dart';
 import 'package:new_project_driving/fonts/fonts.dart';
+import 'package:new_project_driving/fonts/google_poppins_widget.dart';
 import 'package:new_project_driving/utils/utils.dart';
 import 'package:new_project_driving/view/widget/Iconbackbutton.dart';
 import 'package:new_project_driving/view/widget/signup_form_field_widget/signup_form_field_widget.dart';
@@ -191,13 +192,22 @@ class _TeacherProfileCreationScreenState
                         function: checkFieldEmpty,
                       ),
                       const SizedBox(height: 10),
-                      SignUpTextFormFieldWidget(
-                        textEditingController:
-                            teacherSignUpController.emailController,
-                        function: checkFieldEmailIsValid,
-                        labelText: 'Enter email',
-                        hintText: "Enter mail ID",
-                        icon: Icons.mail_outline,
+                      Column(
+                        children: [
+                          SignUpTextFormFieldWidget(
+                            textEditingController:
+                                teacherSignUpController.emailController,
+                            function: checkFieldEmailIsValid,
+                            labelText: 'Enter email',
+                            hintText: "Enter mail ID",
+                            icon: Icons.mail_outline,
+                          ),
+                          GooglePoppinsWidgets(
+                            text: "* Use the email that you provided to admin ",
+                            fontsize: 13,
+                            color: const Color.fromARGB(255, 27, 106, 170),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 10),
                       Padding(
@@ -311,47 +321,43 @@ class _TeacherProfileCreationScreenState
                                 if (teacherSignUpController
                                     .formKey.currentState!
                                     .validate()) {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Alert'),
-                                        content: const SingleChildScrollView(
-                                          child: ListBody(
-                                            children: [
-                                              Text(
-                                                  'You are ready to use 7 days free trial.'),
-                                            ],
-                                          ),
-                                        ),
+                                  if (await teacherSignUpController
+                                      .isEmailInTempTeacherList(
+                                          teacherSignUpController
+                                              .emailController.text)) {
+                                    String uid = const Uuid().v1();
+                                    UploadTask uploadTask = FirebaseStorage
+                                        .instance
+                                        .ref()
+                                        .child("files/schoolProfile/$uid")
+                                        .putData(file!);
+
+                                    final TaskSnapshot snap = await uploadTask;
+                                    teacherSignUpController.downloadUrl.value =
+                                        await snap.ref.getDownloadURL();
+                                    await teacherSignUpController
+                                        .createTeacher(context);
+                                  } else {
+                                    // Email does not match, show an error message
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.all(Radius.zero)),
+                                        content: const Text(
+                                            'Email does not match the admin email.'),
                                         actions: [
-                                          TextButton(
-                                            onPressed: () async {
-                                              String uid = const Uuid().v1();
-                                              UploadTask uploadTask =
-                                                  FirebaseStorage.instance
-                                                      .ref()
-                                                      .child(
-                                                          "files/schoolProfile/$uid")
-                                                      .putData(file!);
-
-                                              final TaskSnapshot snap =
-                                                  await uploadTask;
-                                              teacherSignUpController
-                                                      .downloadUrl.value =
-                                                  await snap.ref
-                                                      .getDownloadURL();
-
-                                              await teacherSignUpController
-                                                  .createTeacher(context);
+                                          MaterialButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
                                             },
                                             child: const Text('OK'),
                                           ),
                                         ],
-                                      );
-                                    },
-                                  );
+                                      ),
+                                    );
+                                  }
                                 }
                               }
                             },

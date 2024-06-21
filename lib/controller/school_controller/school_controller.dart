@@ -18,6 +18,7 @@ class SchoolController extends GetxController {
           data.docs.map((e) => SchoolModel.fromJson(e.data())).toList();
       if (schoolModelList.isNotEmpty) {
         UserCredentialsController.schoolId = schoolModelList[0].docid;
+        UserCredentialsController.schoolName = schoolModelList[0].schoolName;
         await SharedPreferencesHelper.setString(
             SharedPreferencesHelper.schoolIdKey,
             UserCredentialsController.schoolId ?? "");
