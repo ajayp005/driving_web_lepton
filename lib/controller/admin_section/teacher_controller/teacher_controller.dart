@@ -8,22 +8,22 @@ import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 import 'package:progress_state_button/progress_button.dart';
 
-class TeacherController extends GetxController {
-  TextEditingController teacherNameController = TextEditingController();
-  TextEditingController teacherPhoneNumeber = TextEditingController();
-  TextEditingController teacherEmailController = TextEditingController();
+class TutorController extends GetxController {
+  TextEditingController tutorNameController = TextEditingController();
+  TextEditingController tutorPhoneNumeber = TextEditingController();
+  TextEditingController tutorEmailController = TextEditingController();
   Rx<ButtonState> buttonstate = ButtonState.idle.obs;
   final Rx<String> dateofbithController = ''.obs;
   final Rx<String> gender = ''.obs;
   final Rx<String> subject = ''.obs;
   final Rxn<DateTime> selectedDOB = Rxn<DateTime>();
-  RxBool ontapTeacher = false.obs;
+  RxBool ontapTutor = false.obs;
   RxString dobSelectedDate = ''.obs;
   RxString joiningSelectedDate = ''.obs;
-  RxBool ontapviewteacher = false.obs;
+  RxBool ontapviewTutor = false.obs;
 
-  RxBool teacherEditDetail = false.obs;
-  Rxn<TeacherModel> teacherModelData = Rxn<TeacherModel>();
+  RxBool tutorEditDetail = false.obs;
+  Rxn<TeacherModel> tutorModelData = Rxn<TeacherModel>();
   final formKey = GlobalKey<FormState>();
 
 //......................  Add teacher Section
@@ -66,8 +66,8 @@ class TeacherController extends GetxController {
   }
 
   void clearFields() {
-    teacherNameController.clear();
-    teacherPhoneNumeber.clear();
-    teacherEmailController.clear();
+    tutorNameController.clear();
+    tutorPhoneNumeber.clear();
+    tutorEmailController.clear();
   }
 }

@@ -4,8 +4,8 @@ import 'package:new_project_driving/fonts/text_widget.dart';
 import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
-import 'package:new_project_driving/view/users/admin/screens/teacher/create_teacher/create_newteachers.dart';
-import 'package:new_project_driving/view/users/admin/screens/teacher/teacher_data_list.dart';
+import 'package:new_project_driving/view/users/admin/screens/tutor/create_tutor/create_new_tutor.dart';
+import 'package:new_project_driving/view/users/admin/screens/tutor/tutor_data_list.dart';
 import 'package:new_project_driving/view/widget/loading_widget/loading_widget.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:new_project_driving/view/widget/reusable_table_widgets/category_table_header.dart';
@@ -29,7 +29,7 @@ class AllTeacherRegistrationList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const TextFontWidget(
-                text: 'All Teachers List 📃',
+                text: 'All Tutor List 📃',
                 fontsize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -122,7 +122,7 @@ class AllTeacherRegistrationList extends StatelessWidget {
                                     // teacherController.ontapviewteacher.value =
                                     //     true;
                                   },
-                                  child: AllTeachersDataList(
+                                  child: AllTutorDataList(
                                     index: index,
                                     data: data,
                                   ),

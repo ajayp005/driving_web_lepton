@@ -7,9 +7,11 @@ import 'package:new_project_driving/info/info.dart';
 import 'package:new_project_driving/utils/firebase/firebase.dart';
 import 'package:new_project_driving/utils/user_auth/user_credentials.dart';
 import 'package:new_project_driving/view/users/admin/app_bar/admin_appBar.dart';
-import 'package:new_project_driving/view/users/admin/app_bar/tutor_appBar.dart';
 import 'package:new_project_driving/view/users/admin/drawer/drawer_pages.dart';
+import 'package:new_project_driving/view/users/admin/screens/courses/course_details.dart';
 import 'package:new_project_driving/view/users/admin/screens/registration/teachers_regi_container.dart';
+import 'package:new_project_driving/view/users/admin/screens/students/students_list/view_all_students.dart';
+import 'package:new_project_driving/view/users/admin/screens/tutor/view_all_tutor.dart';
 import 'package:new_project_driving/view/widget/loading_widget/loading_widget.dart';
 import 'package:new_project_driving/view/widget/responsive/responsive.dart';
 import 'package:sidebar_drawer/sidebar_drawer.dart';
@@ -23,10 +25,18 @@ class AdminHomeScreen extends StatefulWidget {
 
 class _AdminHomeScreenState extends State<AdminHomeScreen> {
   int selectedIndex = 0;
+
+  void onPageSelected(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: UserCredentialsController.schoolId != FirebaseAuth.instance.currentUser!.uid
+        stream: UserCredentialsController.schoolId !=
+                FirebaseAuth.instance.currentUser!.uid
             ? server
                 .collection('DrivingSchoolCollection')
                 .doc(UserCredentialsController.schoolId)
@@ -41,7 +51,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     body: SafeArea(
                         child: Center(
                       child: TextFontWidget(
-                          text: "Waiting for superadmin response.....", fontsize: 20),
+                          text: "Waiting for superadmin response.....",
+                          fontsize: 20),
                     )),
                   )
                 : Scaffold(
@@ -75,14 +86,19 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                           ),
                                           GooglePoppinsWidgets(
                                             text: institutionName,
-                                            fontsize: ResponsiveWebSite.isMobile(context) ? 18 : 20,
+                                            fontsize:
+                                                ResponsiveWebSite.isMobile(
+                                                        context)
+                                                    ? 18
+                                                    : 20,
                                             fontWeight: FontWeight.w500,
                                           )
                                         ],
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 10, top: 12),
+                                      padding: const EdgeInsets.only(
+                                          left: 10, top: 12),
                                       child: GestureDetector(
                                         child: Text(
                                           "Main Menu",
@@ -97,13 +113,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    DrawerSelectedPagesSection(
+                                    DrawerSelectedPagesSectionAdmin(
                                       selectedIndex: selectedIndex,
-                                      onTap: (index) {
-                                        setState(() {
-                                          selectedIndex = index;
-                                        });
-                                      },
+                                      onTap: onPageSelected,
                                     )
                                   ],
                                 ),
@@ -112,14 +124,15 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           )),
                     ),
                   );
-          } else if (UserCredentialsController.schoolId == FirebaseAuth.instance.currentUser!.uid) {
+          } else if (UserCredentialsController.schoolId ==
+              FirebaseAuth.instance.currentUser!.uid) {
             return Scaffold(
               backgroundColor: cWhite,
               body: SafeArea(
                 child: SidebarDrawer(
                     body: ListView(
                       children: [
-                        AppBarTutorPanel(),
+                        AppBarAdminPanel(),
                         pages[selectedIndex],
                       ],
                     ),
@@ -144,14 +157,18 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                     ),
                                     GooglePoppinsWidgets(
                                       text: institutionName,
-                                      fontsize: ResponsiveWebSite.isMobile(context) ? 18 : 20,
+                                      fontsize:
+                                          ResponsiveWebSite.isMobile(context)
+                                              ? 18
+                                              : 20,
                                       fontWeight: FontWeight.w500,
                                     )
                                   ],
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 12),
+                                padding:
+                                    const EdgeInsets.only(left: 10, top: 12),
                                 child: Text(
                                   "Main Menu",
                                   style: TextStyle(
@@ -164,13 +181,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               const SizedBox(
                                 height: 10,
                               ),
-                              DrawerSelectedPagesSection(
+                              DrawerSelectedPagesSectionAdmin(
                                 selectedIndex: selectedIndex,
-                                onTap: (index) {
-                                  setState(() {
-                                    selectedIndex = index;
-                                  });
-                                },
+                                onTap: onPageSelected,
                               )
                             ],
                           ),
@@ -188,43 +201,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
 List<Widget> pages = [
   // AdminDashBoardSections(),
-
-  // AllClassListContainer(),
-  const AllTeacherRegistrationList(),
-  // AllNonTeachStaffListContainer(),
-
-  // AllStudentListContainer(),
-  // AllTeacherListContainer(),
-  // AllParentsListContainer(),
-
-  // AllClassListView(),
-
-  // CreatedFeesStatus(),
-
-  // PeriodWiseStudentsAttendance(),
-  // AllTeachersAttendance(),
-
-  // AllExamNotificationListView(),
-
-  // NoticeEditRemove(),
-
-  // const AllEventsList(),
-
-  // AllMeetingsListPage(),
-
-  // AdminNotificationCreate(),
-
-  // AllAdminListPage(),
-
-  // GeneralInsructions(),
-
-  // const Achievements(),
-
-  // BatchHistroyListPage(),
-  // // const TimeTableMainScreen(),
-  // // LoginHistroyContainer(),
-  // // const Scaffold(body: LoginDashBoard())
-  // const TimeTableMainScreen(),
-  // LoginHistroyContainer(),
-  // TherapyHomePage()
+  const AllTeacherRegistrationList(), // index 0
+  const CoursesDetails(), // index 1
+  const AllTeacherRegistrationList(), // index 2
+  AllStudentListContainer(), // index 3
+  AllTutorListContainer(), // index 4
 ];

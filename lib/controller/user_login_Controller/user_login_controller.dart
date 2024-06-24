@@ -199,6 +199,7 @@ class UserLoginController extends GetxController {
         if (user.data() != null) {
           UserCredentialsController.teacherModel =
               TeacherModel.fromMap(user.data()!);
+          log(UserCredentialsController.teacherModel.toString());
         }
 
         if (UserCredentialsController.teacherModel?.userRole == "teacher") {

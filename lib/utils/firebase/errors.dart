@@ -27,13 +27,13 @@ void handleFirebaseError(FirebaseAuthException error) {
       break;
     case 'invalid-credential':
       showToast(msg: 'Invalid credential.');
-      break; 
+      break;
     case 'credential-already-in-use':
       showToast(msg: 'This credential is already in use.');
       break;
     case 'provider-already-linked':
       showToast(msg: 'This provider is already linked to an account.');
-      break;   
+      break;
     case 'timeout':
       showToast(msg: 'Operation timed out.');
       break;
@@ -51,7 +51,7 @@ void handleFirebaseError(FirebaseAuthException error) {
       break;
     case 'user-mismatch':
       showToast(msg: 'User mismatch.');
-      break; 
+      break;
     case 'invalid-api-key':
       showToast(msg: 'Invalid API key.');
       break;
@@ -91,6 +91,7 @@ void handleFirebaseError(FirebaseAuthException error) {
 
     default:
       showToast(msg: 'Something went wrong. Please try again.');
+      showToast(msg: "Don't have an account? SignUp first!");
       break;
   }
 }

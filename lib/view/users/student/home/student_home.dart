@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:new_project_driving/colors/colors.dart';
 import 'package:new_project_driving/fonts/google_poppins_widget.dart';
 import 'package:new_project_driving/info/info.dart';
-import 'package:new_project_driving/view/users/admin/app_bar/student_appBar.dart';
- 
-import 'package:new_project_driving/view/users/admin/drawer/drawer_pages.dart';
 import 'package:new_project_driving/view/users/admin/screens/registration/teachers_regi_container.dart';
+import 'package:new_project_driving/view/users/student/appbar/student_appBar.dart';
+import 'package:new_project_driving/view/users/student/drawer/drawer_pages_tutor.dart';
 import 'package:sidebar_drawer/sidebar_drawer.dart';
 
 class StudentHomeScreen extends StatefulWidget {
@@ -35,7 +34,8 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               color: cWhite,
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, bottom: 590),
+                  padding:
+                      const EdgeInsets.only(left: 10, right: 10, bottom: 590),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -70,7 +70,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                         ),
                       ),
                       // sHeight10,
-                      DrawerSelectedPagesSection(
+                      DrawerSelectedPagesSectionStudent(
                         selectedIndex: selectedIndex,
                         onTap: (index) {
                           setState(() {

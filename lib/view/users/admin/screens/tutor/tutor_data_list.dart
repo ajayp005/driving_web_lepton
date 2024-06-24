@@ -4,10 +4,10 @@ import 'package:new_project_driving/fonts/text_widget.dart';
 import 'package:new_project_driving/model/teacher_model/teacher_model.dart';
 import 'package:new_project_driving/view/widget/reusable_table_widgets/data_container.dart';
 
-class AllTeachersDataList extends StatelessWidget {
+class AllTutorDataList extends StatelessWidget {
   final int index;
   final TeacherModel data;
-  const AllTeachersDataList({
+  const AllTutorDataList({
     required this.index,
     required this.data,
     super.key,
