@@ -247,7 +247,7 @@ String timeToDateConvert(String date) {
   //String dateandtime convert to "dd-mm-yyyy hh:mm" this format
   try {
     final DateTime dateFormat = DateTime.parse(date);
-    final DateFormat formatter = DateFormat('d-M-yyyy h:mm');
+    final DateFormat formatter = DateFormat('dd-MM-yyyy h:mm');
     return formatter.format(dateFormat);
   } catch (e) {
     if (kDebugMode) {
@@ -255,4 +255,17 @@ String timeToDateConvert(String date) {
     }
   }
   return '';
+}
+
+Future<String> dateTimePicker(BuildContext context) async {
+  DateTime? dateTime = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2025));
+  if (dateTime != null) {
+    return DateFormat("dd-MM-yyyy").format(dateTime);
+  } else {
+    return '';
+  }
 }

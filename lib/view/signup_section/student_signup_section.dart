@@ -12,7 +12,6 @@ import 'package:new_project_driving/constant/constant.validate.dart';
 import 'package:new_project_driving/controller/user_signup_controller/student_signup_controller.dart';
 import 'package:new_project_driving/controller/user_signup_controller/teacher_signup_controller.dart';
 import 'package:new_project_driving/fonts/fonts.dart';
-import 'package:new_project_driving/utils/utils.dart';
 import 'package:new_project_driving/view/widget/Iconbackbutton.dart';
 import 'package:new_project_driving/view/widget/signup_form_field_widget/signup_form_field_widget.dart';
 import 'package:uuid/uuid.dart';
@@ -138,7 +137,7 @@ class _StudentProfileCreationScreenState
                         keyboardType: TextInputType.none,
                         textEditingController:
                             studentSignUpController.dateOfBirthController,
-                        function: checkFieldEmpty,
+                        function: checkFieldDateIsValid,
                         onTapFunction: () async {
                           studentSignUpController.dateOfBirthController.text =
                               await dateTimePicker(context);

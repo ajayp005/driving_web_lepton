@@ -306,7 +306,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
           height: 10,
         ),
         Container(
-          color: selectedIndex == 5
+          color: selectedIndex == 12
               ? themeColorBlue.withOpacity(0.1)
               : Colors.transparent,
           child: ListTile(
@@ -331,7 +331,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
           height: 10,
         ),
         Container(
-          color: selectedIndex == 5
+          color: selectedIndex == 13
               ? themeColorBlue.withOpacity(0.1)
               : Colors.transparent,
           child: ListTile(
@@ -340,7 +340,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
                 width: 20,
                 child: Image.asset('webassets/png/notice.png')),
             onTap: () {
-              index = 12;
+              index = 13;
               onTap.call(index);
             },
             title: Row(
@@ -356,7 +356,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
           height: 10,
         ),
         Container(
-          color: selectedIndex == 6
+          color: selectedIndex == 14
               ? themeColorBlue.withOpacity(0.1)
               : Colors.transparent,
           child: ListTile(
@@ -365,7 +365,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
                 width: 20,
                 child: Image.asset('webassets/png/banner.png')),
             onTap: () {
-              index = 13;
+              index = 14;
               onTap.call(index);
             },
             title: Row(
@@ -381,7 +381,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
           height: 10,
         ),
         Container(
-          color: selectedIndex == 5
+          color: selectedIndex == 15
               ? themeColorBlue.withOpacity(0.1)
               : Colors.transparent,
           child: ListTile(
@@ -390,7 +390,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
                 width: 20,
                 child: Image.asset('webassets/png/video.png')),
             onTap: () {
-              index = 12;
+              index = 15;
               onTap.call(index);
             },
             title: Row(
@@ -432,7 +432,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
           height: 10,
         ),
         Container(
-          color: selectedIndex == 7
+          color: selectedIndex == 16
               ? themeColorBlue.withOpacity(0.1)
               : Colors.transparent,
           child: ListTile(
@@ -441,7 +441,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
                 width: 20,
                 child: Image.asset('webassets/png/notification.png')),
             onTap: () {
-              index = 15;
+              index = 16;
               onTap.call(index);
             },
             title: Row(
@@ -456,55 +456,8 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        // Container(
-        //   color: selectedIndex == 16
-        //       ? themeColorBlue.withOpacity(0.1)
-        //       : Colors.transparent,
-        //   child: ListTile(
-        //     leading: SizedBox(
-        //         height: 20,
-        //         width: 20,
-        //         child: Image.asset('webassets/png/createadmin.png')),
-        //     onTap: () {
-        //       index = 16;
-        //       onTap.call(index);
-        //     },
-        //     title: Row(
-        //       children: [
-        //         DashboardTextFontWidget(
-        //           title: 'Create Admin',
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ), //////////////////////////////////////.................................
-        // const SizedBox(
-        //   height: 10,
-        // ),
-        // Container(
-        //   color: selectedIndex == 17
-        //       ? themeColorBlue.withOpacity(0.1)
-        //       : Colors.transparent,
-        //   child: ListTile(
-        //     leading: SizedBox(
-        //         height: 20,
-        //         width: 20,
-        //         child: Image.asset('webassets/png/generalinstruction.png')),
-        //     onTap: () {
-        //       index = 17;
-        //       onTap.call(index);
-        //     },
-        //     title: Row(
-        //       children: [
-        //         DashboardTextFontWidget(
-        //           title: 'General Instructions',
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // ), ///////////////////////////////////...................
         Container(
-          color: selectedIndex == 8
+          color: selectedIndex == 17
               ? themeColorBlue.withOpacity(0.1)
               : Colors.transparent,
           child: ListTile(
@@ -513,7 +466,7 @@ class DrawerSelectedPagesSectionAdmin extends StatelessWidget {
                 width: 20,
                 child: Image.asset('webassets/png/logout.png')),
             onTap: () {
-              index = 21;
+              index = 17;
               onTap.call(index);
             },
             title: Row(
